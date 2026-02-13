@@ -25,13 +25,13 @@
         .header {
             display: flex;
             align-items: center;
-            padding: 1.5rem;
+            padding: 1rem 1.5rem;
             background: white;
             border-bottom: 1px solid #e0e0e0;
         }
         
         .back-btn {
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             color: #000;
             text-decoration: none;
@@ -43,11 +43,11 @@
         }
         
         .back-text {
-            font-size: 1.02rem;
+            font-size: 1rem;
             font-weight: 400;
             font-family: 'Inter', sans-serif;
             line-height: 1;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         
         .container {
@@ -66,7 +66,7 @@
         .subtitle {
             font-size: 1.125rem;
             text-align: center;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
             color: #000;
             font-weight: 300;
             font-family: 'Inter', sans-serif;
@@ -80,7 +80,7 @@
         }
         
         .completed-group {
-            padding: 0.95rem;
+            padding: 0.65rem;
             border-radius: 8px;
             text-align: center;
         }
@@ -120,21 +120,20 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
             width: 100%;
             max-width: 100%;
         }
         
         .tile {
-            aspect-ratio: 1;
             background: #efefe6;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
-            font-size: 1.05rem;
+            padding: 1.1rem 0.35rem;
+            font-size: 1rem;
             font-weight: 700;
             font-family: 'Libre Franklin', sans-serif;
             text-align: center;
@@ -178,7 +177,7 @@
         
         .mistakes {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-size: 1rem;
             font-weight: 300;
             font-family: 'Inter', sans-serif;
@@ -290,47 +289,32 @@
             font-size: 0.85rem;
         }
         
-        .win-screen {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        
-        .win-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .win-message {
-            font-size: 1.125rem;
-            color: #666;
-        }
         
         @media (max-width: 480px) {
             .container {
-                padding: 0.75rem 0.75rem;
+                padding: 0.5rem 0.5rem;
                 max-width: 100%;
             }
             
             .subtitle {
-                font-size: 1rem;
-                margin: 0.75rem 0;
+                font-size: 0.95rem;
+                margin: 0.35rem 0;
             }
             
             .grid {
-                gap: 0.35rem;
-                margin-bottom: 1.25rem;
+                gap: 0.3rem;
+                margin-bottom: 0.75rem;
             }
             
             .tile {
-                font-size: 0.9rem;
-                padding: 0.3rem;
+                font-size: 0.85rem;
+                padding: 0.85rem 0.2rem;
                 border-radius: 6px;
             }
             
             .mistakes {
                 font-size: 0.9rem;
-                margin-bottom: 1.25rem;
+                margin-bottom: 0.75rem;
             }
             
             .mistake-dot {
@@ -339,35 +323,30 @@
             }
             
             .controls {
-                gap: 0.5rem;
-                flex-wrap: wrap;
+                gap: 0.4rem;
             }
             
             .btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.9rem;
+                padding: 0.65rem 1.1rem;
+                font-size: 0.85rem;
             }
             
             .completed-group {
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
             
             .completed-group-title {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             
             .completed-group-items {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
             }
         }
         
         @media (max-width: 375px) {
             .container {
-                padding: 0.5rem 0.5rem;
-            }
-            
-            .subtitle {
-                font-size: 0.95rem;
+                padding: 0.35rem 0.35rem;
             }
             
             .grid {
@@ -375,13 +354,13 @@
             }
             
             .tile {
-                font-size: 0.8rem;
-                padding: 0.2rem;
+                font-size: 0.78rem;
+                padding: 0.7rem 0.15rem;
             }
             
             .btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.85rem;
+                padding: 0.55rem 0.85rem;
+                font-size: 0.8rem;
             }
         }
         
