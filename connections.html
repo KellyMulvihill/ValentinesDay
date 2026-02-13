@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Connections</title>
+    <title>Connections ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Libre+Franklin:wght@300;700&display=swap');
         
@@ -13,10 +13,13 @@
             box-sizing: border-box;
         }
         
+        html, body {
+            height: 100%;
+        }
+        
         body {
             font-family: 'Work Sans', sans-serif;
             background: #ffffff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
@@ -25,9 +28,10 @@
         .header {
             display: flex;
             align-items: center;
-            padding: 1rem 1.5rem;
+            padding: 0.75rem 1rem;
             background: white;
             border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
         }
         
         .back-btn {
@@ -54,9 +58,11 @@
             max-width: 600px;
             width: 100%;
             margin: 0 auto;
-            padding: 1rem 1rem;
+            padding: 0.5rem 0.75rem;
             flex: 1;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
@@ -64,12 +70,13 @@
         }
         
         .subtitle {
-            font-size: 1.125rem;
+            font-size: 1rem;
             text-align: center;
-            margin: 0.5rem 0;
+            margin: 0.35rem 0;
             color: #000;
             font-weight: 300;
             font-family: 'Inter', sans-serif;
+            flex-shrink: 0;
         }
         
         .completed-groups {
@@ -80,7 +87,7 @@
         }
         
         .completed-group {
-            padding: 0.65rem;
+            padding: 0.55rem;
             border-radius: 8px;
             text-align: center;
         }
@@ -102,16 +109,16 @@
         }
         
         .completed-group-title {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             font-family: 'Libre Franklin', sans-serif;
-            margin-bottom: 0.12rem;
+            margin-bottom: 0.1rem;
             text-transform: uppercase;
             letter-spacing: 0;
         }
         
         .completed-group-items {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 400;
             font-family: 'Libre Franklin', sans-serif;
             text-transform: uppercase;
@@ -120,8 +127,8 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.4rem;
-            margin-bottom: 1rem;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
             width: 100%;
             max-width: 100%;
         }
@@ -132,8 +139,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.1rem 0.35rem;
-            font-size: 1rem;
+            aspect-ratio: 1 / 1;
+            padding: 0.25rem;
+            font-size: 0.82rem;
             font-weight: 700;
             font-family: 'Libre Franklin', sans-serif;
             text-align: center;
@@ -142,6 +150,9 @@
             border: 2px solid transparent;
             user-select: none;
             text-transform: uppercase;
+            line-height: 1.15;
+            word-break: break-word;
+            overflow: hidden;
         }
         
         .tile:hover {
@@ -177,14 +188,15 @@
         
         .mistakes {
             text-align: center;
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
             font-weight: 300;
             font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
+            flex-shrink: 0;
         }
         
         .mistake-dots {
@@ -194,8 +206,8 @@
         }
         
         .mistake-dot {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #5a594e;
             transition: opacity 0.3s ease;
@@ -207,18 +219,19 @@
         
         .controls {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.5rem;
             justify-content: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            flex-shrink: 0;
         }
         
         .btn {
-            padding: 0.875rem 1.75rem;
+            padding: 0.7rem 1.25rem;
             border-radius: 24px;
             border: 1px solid #000;
             background: #fff;
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.15s ease;
@@ -289,129 +302,27 @@
             font-size: 0.85rem;
         }
         
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 0.5rem 0.5rem;
-                max-width: 100%;
-            }
-            
-            .subtitle {
-                font-size: 0.95rem;
-                margin: 0.35rem 0;
-            }
-            
-            .grid {
-                gap: 0.3rem;
-                margin-bottom: 0.75rem;
-            }
-            
-            .tile {
-                font-size: 0.85rem;
-                padding: 0.85rem 0.2rem;
-                border-radius: 6px;
-            }
-            
-            .mistakes {
-                font-size: 0.9rem;
-                margin-bottom: 0.75rem;
-            }
-            
-            .mistake-dot {
-                width: 14px;
-                height: 14px;
-            }
-            
-            .controls {
-                gap: 0.4rem;
-            }
-            
-            .btn {
-                padding: 0.65rem 1.1rem;
-                font-size: 0.85rem;
-            }
-            
-            .completed-group {
-                padding: 0.5rem;
-            }
-            
-            .completed-group-title {
-                font-size: 0.8rem;
-            }
-            
-            .completed-group-items {
-                font-size: 0.75rem;
-            }
-        }
-        
-        @media (max-width: 375px) {
-            .container {
-                padding: 0.35rem 0.35rem;
-            }
-            
-            .grid {
-                gap: 0.25rem;
-            }
-            
-            .tile {
-                font-size: 0.78rem;
-                padding: 0.7rem 0.15rem;
-            }
-            
-            .btn {
-                padding: 0.55rem 0.85rem;
-                font-size: 0.8rem;
-            }
-        }
-        
-        /* Victory Popup */
-        .victory-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
+        /* Inline win section (below completed groups) */
+        .inline-win {
             display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .victory-popup.show {
-            display: flex;
-        }
-        
-        .victory-content {
-            background: #fff;
-            padding: 3rem 2.5rem;
-            border-radius: 16px;
             text-align: center;
-            max-width: 400px;
-            margin: 0 1rem;
-            position: relative;
+            padding: 1.5rem 0.5rem;
+            animation: fadeInUp 0.6s ease-out;
         }
         
-        .close-victory {
-            position: absolute;
-            top: 12px;
-            right: 16px;
+        .inline-win.show {
+            display: block;
+        }
+        
+        .inline-win-message {
             font-size: 1.5rem;
-            cursor: pointer;
-            color: rgba(0,0,0,0.08);
-            background: none;
-            border: none;
-            line-height: 1;
-        }
-        
-        .victory-message {
-            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem;
             color: #000;
         }
         
-        .back-to-puzzles-btn {
+        .inline-win-btn {
             padding: 0.875rem 2rem;
             background: #000;
             color: #fff;
@@ -424,12 +335,97 @@
             transition: all 0.2s ease;
         }
         
-        .back-to-puzzles-btn:hover {
+        .inline-win-btn:hover {
             background: #333;
         }
         
-        .back-to-puzzles-btn:active {
+        .inline-win-btn:active {
             transform: scale(0.97);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.35rem 0.5rem;
+                max-width: 100%;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                margin: 0.25rem 0;
+            }
+            
+            .grid {
+                gap: 0.25rem;
+                margin-bottom: 0.4rem;
+            }
+            
+            .tile {
+                font-size: 0.75rem;
+                border-radius: 6px;
+                padding: 0.2rem;
+            }
+            
+            .mistakes {
+                font-size: 0.85rem;
+                margin-bottom: 0.4rem;
+            }
+            
+            .mistake-dot {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .controls {
+                gap: 0.35rem;
+            }
+            
+            .btn {
+                padding: 0.55rem 0.9rem;
+                font-size: 0.82rem;
+            }
+            
+            .completed-group {
+                padding: 0.45rem;
+            }
+            
+            .completed-group-title {
+                font-size: 0.75rem;
+            }
+            
+            .completed-group-items {
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .container {
+                padding: 0.25rem 0.35rem;
+            }
+            
+            .grid {
+                gap: 0.2rem;
+            }
+            
+            .tile {
+                font-size: 0.7rem;
+                padding: 0.15rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.78rem;
+            }
         }
         
         /* iPhone Call Screen */
@@ -516,19 +512,17 @@
             border-radius: 35px;
             position: relative;
             overflow: hidden;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            user-select: none;
         }
         
         .slide-text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
             color: #fff;
-            font-size: 1.15rem;
-            white-space: nowrap;
+            z-index: 1;
             pointer-events: none;
         }
         
@@ -648,6 +642,12 @@
             <button class="btn" id="deselectBtn" disabled>Deselect all</button>
             <button class="btn btn-submit" id="submitBtn" disabled>Submit</button>
         </div>
+        
+        <!-- Inline congratulations (appears below answers) -->
+        <div class="inline-win" id="inlineWin">
+            <div class="inline-win-message">Congratulations!</div>
+            <button class="inline-win-btn" id="showPhoneBtn">Back to puzzles</button>
+        </div>
     </div>
     
     <div class="message" id="message"></div>
@@ -683,7 +683,6 @@
         let mistakesRemaining = 4;
         
         function init() {
-            // Flatten and shuffle all items
             tiles = categories.flatMap(cat => 
                 cat.items.map(item => ({
                     text: item,
@@ -773,7 +772,6 @@
             const selected = selectedTiles.map(i => tiles[i]);
             const guessCategories = [...new Set(selected.map(t => t.category))];
             
-            // Check if already guessed this exact combination
             const selectedTexts = selected.map(t => t.text).sort().join(',');
             const alreadyGuessed = foundGroups.some(group => 
                 [...group.items].sort().join(',') === selectedTexts
@@ -786,7 +784,6 @@
             }
             
             if (guessCategories.length === 1) {
-                // Correct! Add bounce animation
                 selectedTiles.forEach(i => {
                     const tile = document.querySelector(`[data-index="${i}"]`);
                     tile.classList.add('bounce');
@@ -800,11 +797,9 @@
                     items: selected.map(t => t.text)
                 };
                 
-                // Delay showing completed group until after bounce
                 setTimeout(() => {
                     foundGroups.push(foundCategory);
                     
-                    // Remove found tiles
                     tiles = tiles.filter(t => t.category !== category);
                     selectedTiles = [];
                     
@@ -818,7 +813,6 @@
                     }
                 }, 500);
             } else if (guessCategories.length === 2) {
-                // Check if one away (3 from same category)
                 const categoryCounts = {};
                 selected.forEach(t => {
                     categoryCounts[t.category] = (categoryCounts[t.category] || 0) + 1;
@@ -831,7 +825,6 @@
                 mistakesRemaining--;
                 updateMistakes();
                 
-                // Shake animation
                 selectedTiles.forEach(i => {
                     const tile = document.querySelector(`[data-index="${i}"]`);
                     tile.classList.add('shake');
@@ -852,11 +845,9 @@
                     setTimeout(() => { isSubmitting = false; }, 500);
                 }
             } else {
-                // Wrong
                 mistakesRemaining--;
                 updateMistakes();
                 
-                // Shake animation
                 selectedTiles.forEach(i => {
                     const tile = document.querySelector(`[data-index="${i}"]`);
                     tile.classList.add('shake');
@@ -913,17 +904,16 @@
         }
         
         function showWinScreen() {
-            // Show victory popup
-            document.getElementById('victoryPopup').classList.add('show');
+            // Hide the game controls
+            document.querySelector('.mistakes').style.display = 'none';
+            document.querySelector('.controls').style.display = 'none';
             
-            // Close X button
-            document.getElementById('closeVictory').addEventListener('click', () => {
-                document.getElementById('victoryPopup').classList.remove('show');
-            }, { once: true });
+            // Show inline congratulations below the completed groups
+            const inlineWin = document.getElementById('inlineWin');
+            inlineWin.classList.add('show');
             
             // "Back to puzzles" → phone screen
             document.getElementById('showPhoneBtn').addEventListener('click', () => {
-                document.getElementById('victoryPopup').classList.remove('show');
                 document.getElementById('winScreen').classList.add('show');
                 setupPhoneSlider();
             }, { once: true });
@@ -995,15 +985,6 @@
         
         init();
     </script>
-    
-    <!-- Victory Popup -->
-    <div id="victoryPopup" class="victory-popup">
-        <div class="victory-content">
-            <button class="close-victory" id="closeVictory">✕</button>
-            <div class="victory-message">Congratulations!</div>
-            <button class="back-to-puzzles-btn" id="showPhoneBtn">Back to puzzles</button>
-        </div>
-    </div>
     
     <!-- iPhone Call Screen -->
     <div id="winScreen" class="win-screen">
