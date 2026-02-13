@@ -10,26 +10,20 @@
         .reveal-container { width: 100%; height: 100vh; height: 100dvh; position: relative; }
         .reveal-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .end-call-btn {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.875rem 2rem;
-            background: #007AFF;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
+            position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+            padding: 0.875rem 2rem; background: #007AFF; color: #fff;
+            border: none; border-radius: 24px; font-size: 1rem; font-weight: 600;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            z-index: 10;
+            cursor: pointer; text-decoration: none; display: inline-block; z-index: 10;
         }
-
-        .end-call-btn:hover {
-            background: #0066DD;
+        .end-call-btn:hover { background: #0066DD; }
+        .audio-btn {
+            position: absolute; bottom: 1.2rem; right: 1rem;
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.3);
+            font-size: 14px; cursor: pointer; z-index: 11;
+            display: flex; align-items: center; justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -37,32 +31,40 @@
     <div class="reveal-container">
         <img src="timotheecongratulations.png" alt="Congrats on the connections babe">
         <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
+        <button class="audio-btn" id="audioBtn">&#x266A;</button>
     </div>
     <audio id="victoryMusic" preload="auto">
         <source src="cmbyn.mp3" type="audio/mpeg">
     </audio>
     <script>
         const music = document.getElementById('victoryMusic');
+        const audioBtn = document.getElementById('audioBtn');
         music.volume = 1.0;
         music.currentTime = 0;
 
-        // Aggressive autoplay: try immediately, on touch, and keep retrying
         function forcePlay() {
             music.play().then(() => {
                 clearInterval(retryInterval);
+                audioBtn.style.display = 'none';
             }).catch(() => {});
         }
 
         forcePlay();
         const retryInterval = setInterval(forcePlay, 500);
-        // Stop retrying after 10 seconds
         setTimeout(() => clearInterval(retryInterval), 10000);
 
-        // Also try on any user interaction
         ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
-            document.addEventListener(evt, () => {
-                forcePlay();
-            }, { once: true });
+            document.addEventListener(evt, () => forcePlay(), { once: true });
+        });
+
+        audioBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            music.currentTime = 0;
+            music.play().then(() => {
+                audioBtn.style.display = 'none';
+                clearInterval(retryInterval);
+            }).catch(() => {});
         });
 
         document.getElementById('endCallBtn').addEventListener('click', () => {

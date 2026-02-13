@@ -7,15 +7,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Libre+Franklin:wght@300;700&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html, body {
-            height: 100%;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         
         body {
             font-family: 'Work Sans', sans-serif;
@@ -26,159 +19,79 @@
         }
         
         .header {
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
             padding: 0.75rem 1rem;
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            flex-shrink: 0;
+            background: white; border-bottom: 1px solid #e0e0e0; flex-shrink: 0;
         }
-        
         .back-btn {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #000;
-            text-decoration: none;
-            padding-right: 0.75rem;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 1.5rem; cursor: pointer; color: #000; text-decoration: none;
+            padding-right: 0.75rem; line-height: 1; display: flex; align-items: center; gap: 0.5rem;
         }
-        
         .back-text {
-            font-size: 1rem;
-            font-weight: 400;
-            font-family: 'Inter', sans-serif;
-            line-height: 1;
-            margin-top: 2px;
+            font-size: 1rem; font-weight: 400; font-family: 'Inter', sans-serif;
+            line-height: 1; margin-top: 2px;
         }
         
         .container {
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0.5rem 0.75rem;
-            flex: 1;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
+            max-width: 600px; width: 100%; margin: 0 auto;
+            padding: 0.5rem 0.75rem; flex: 1;
+            overflow-x: hidden; display: flex; flex-direction: column;
         }
-        
-        .title {
-            display: none;
-        }
-        
+        .title { display: none; }
         .subtitle {
-            font-size: 1rem;
-            text-align: center;
-            margin: 0.35rem 0;
-            color: #000;
-            font-weight: 300;
-            font-family: 'Inter', sans-serif;
-            flex-shrink: 0;
+            font-size: 1rem; text-align: center; margin: 0.75rem 0;
+            color: #000; font-weight: 300; font-family: 'Inter', sans-serif; flex-shrink: 0;
         }
         
         .completed-groups {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            margin-bottom: 0.25rem;
+            display: flex; flex-direction: column;
+            gap: 0.3rem; margin-bottom: 0.3rem;
         }
-        
         .completed-group {
-            padding: 0.55rem;
-            border-radius: 8px;
-            text-align: center;
+            border-radius: 8px; text-align: center;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
         }
-        
-        .completed-group.yellow {
-            background: #f9df6d;
-        }
-        
-        .completed-group.green {
-            background: #a0c35a;
-        }
-        
-        .completed-group.blue {
-            background: #b0c4ef;
-        }
-        
-        .completed-group.purple {
-            background: #ba81c5;
-        }
-        
+        .completed-group.yellow { background: #f9df6d; }
+        .completed-group.green { background: #a0c35a; }
+        .completed-group.blue { background: #b0c4ef; }
+        .completed-group.purple { background: #ba81c5; }
         .completed-group-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            font-family: 'Libre Franklin', sans-serif;
-            margin-bottom: 0.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0;
+            font-size: 0.8rem; font-weight: 700; font-family: 'Libre Franklin', sans-serif;
+            margin-bottom: 0.1rem; text-transform: uppercase;
         }
-        
         .completed-group-items {
-            font-size: 0.75rem;
-            font-weight: 400;
-            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.75rem; font-weight: 400; font-family: 'Libre Franklin', sans-serif;
             text-transform: uppercase;
         }
         
         .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.3rem;
-            margin-bottom: 0.5rem;
-            width: 100%;
-            max-width: 100%;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 0.3rem; margin-bottom: 0.5rem; width: 100%; max-width: 100%;
         }
-        
         .tile {
-            background: #efefe6;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            aspect-ratio: 1 / 1;
-            padding: 0.25rem;
-            font-size: 0.82rem;
-            font-weight: 700;
+            background: #efefe6; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            aspect-ratio: 1 / 1; padding: 0.25rem;
+            font-size: 0.82rem; font-weight: 700;
             font-family: 'Libre Franklin', sans-serif;
-            text-align: center;
-            cursor: pointer;
+            text-align: center; cursor: pointer;
             transition: all 0.15s ease;
-            border: 2px solid transparent;
-            user-select: none;
-            text-transform: uppercase;
-            line-height: 1.15;
-            word-break: break-word;
-            overflow: hidden;
+            border: 2px solid transparent; user-select: none;
+            text-transform: uppercase; line-height: 1.15;
+            word-break: break-word; overflow: hidden;
         }
-        
-        .tile:hover {
-            background: #e3e3da;
-        }
-        
-        .tile.selected {
-            background: #5a594e;
-            color: #fff;
-            border-color: #5a594e;
-        }
-        
-        .tile.shake {
-            animation: shake 0.4s;
-        }
-        
-        .tile.bounce {
-            animation: bounce 0.5s ease-out;
-        }
+        .tile.long-text { font-size: 0.68rem; }
+        .tile:hover { background: #e3e3da; }
+        .tile.selected { background: #5a594e; color: #fff; border-color: #5a594e; }
+        .tile.shake { animation: shake 0.4s; }
+        .tile.bounce { animation: bounce 0.5s ease-out; }
         
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-8px); }
             75% { transform: translateX(8px); }
         }
-        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             25% { transform: translateY(-12px); }
@@ -187,427 +100,158 @@
         }
         
         .mistakes {
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 300;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
+            text-align: center; margin: 0.25rem 0 0.5rem;
+            font-size: 0.9rem; font-weight: 300; font-family: 'Inter', sans-serif;
+            display: flex; justify-content: center; align-items: center; gap: 0.5rem; flex-shrink: 0;
         }
-        
-        .mistake-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.4rem;
-        }
-        
+        .mistake-dots { display: flex; justify-content: center; gap: 0.4rem; }
         .mistake-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #5a594e;
-            transition: opacity 0.3s ease;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #5a594e; transition: opacity 0.3s ease;
         }
-        
-        .mistake-dot.used {
-            opacity: 0;
-        }
+        .mistake-dot.used { opacity: 0; }
         
         .controls {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-            flex-shrink: 0;
+            display: flex; gap: 0.5rem; justify-content: center;
+            margin-bottom: 0.5rem; flex-shrink: 0;
         }
-        
         .btn {
-            padding: 0.7rem 1.25rem;
-            border-radius: 24px;
-            border: 1px solid #000;
-            background: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            color: #000;
-            -webkit-appearance: none;
-            -webkit-tap-highlight-color: transparent;
+            padding: 0.7rem 1.25rem; border-radius: 24px; border: 1px solid #000;
+            background: #fff; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: all 0.15s ease; color: #000;
+            -webkit-appearance: none; -webkit-tap-highlight-color: transparent;
         }
-        
-        .btn:hover {
-            background: #f5f5f5;
-        }
-        
-        .btn:active {
-            transform: scale(0.97);
-        }
-        
-        .btn:disabled {
-            opacity: 1;
-            cursor: not-allowed;
-            color: #8b8b8b;
-            border-color: #8b8b8b;
-        }
-        
-        .btn-submit {
-            background: #000;
-            color: #fff;
-        }
-        
-        .btn-submit:disabled {
-            background: #fff;
-            color: #8b8b8b;
-            border-color: #8b8b8b;
-        }
-        
-        .btn-submit:hover {
-            background: #333;
-        }
-        
-        .btn-submit:disabled:hover {
-            background: #fff;
-        }
+        .btn:hover { background: #f5f5f5; }
+        .btn:active { transform: scale(0.97); }
+        .btn:disabled { opacity: 1; cursor: not-allowed; color: #8b8b8b; border-color: #8b8b8b; }
+        .btn-submit { background: #000; color: #fff; }
+        .btn-submit:disabled { background: #fff; color: #8b8b8b; border-color: #8b8b8b; }
+        .btn-submit:hover { background: #333; }
+        .btn-submit:disabled:hover { background: #fff; }
         
         .message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-            font-family: 'Inter', sans-serif;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9); color: #fff; padding: 0.75rem 1.5rem;
+            border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            z-index: 1000; font-family: 'Inter', sans-serif;
         }
+        .message.show { opacity: 1; }
+        .message.small { top: 35%; padding: 0.5rem 1rem; font-size: 0.85rem; }
         
-        .message.show {
-            opacity: 1;
-        }
-        
-        .message.small {
-            top: 35%;
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-        }
-        
-        /* Inline win section (below completed groups) */
         .inline-win {
-            display: none;
-            text-align: center;
-            padding: 1.5rem 0.5rem;
+            display: none; text-align: center; padding: 1.5rem 0.5rem;
             animation: fadeInUp 0.6s ease-out;
         }
-        
-        .inline-win.show {
-            display: block;
-        }
-        
+        .inline-win.show { display: block; }
         .inline-win-message {
-            font-size: 1.5rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 1rem;
-            color: #000;
+            font-size: 1.5rem; font-weight: 700; font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem; color: #000;
         }
-        
         .inline-win-btn {
-            padding: 0.875rem 2rem;
-            background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 0.875rem 2rem; background: #000; color: #fff; border: none;
+            border-radius: 24px; font-size: 1rem; font-weight: 600;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s ease;
         }
-        
-        .inline-win-btn:hover {
-            background: #333;
-        }
-        
-        .inline-win-btn:active {
-            transform: scale(0.97);
-        }
+        .inline-win-btn:hover { background: #333; }
+        .inline-win-btn:active { transform: scale(0.97); }
         
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 480px) {
-            .container {
-                padding: 0.35rem 0.5rem;
-                max-width: 100%;
-            }
-            
-            .subtitle {
-                font-size: 0.9rem;
-                margin: 0.25rem 0;
-            }
-            
-            .grid {
-                gap: 0.25rem;
-                margin-bottom: 0.4rem;
-            }
-            
-            .tile {
-                font-size: 0.75rem;
-                border-radius: 6px;
-                padding: 0.2rem;
-            }
-            
-            .mistakes {
-                font-size: 0.85rem;
-                margin-bottom: 0.4rem;
-            }
-            
-            .mistake-dot {
-                width: 12px;
-                height: 12px;
-            }
-            
-            .controls {
-                gap: 0.35rem;
-            }
-            
-            .btn {
-                padding: 0.55rem 0.9rem;
-                font-size: 0.82rem;
-            }
-            
-            .completed-group {
-                padding: 0.45rem;
-            }
-            
-            .completed-group-title {
-                font-size: 0.75rem;
-            }
-            
-            .completed-group-items {
-                font-size: 0.7rem;
-            }
+            .container { padding: 0.35rem 0.5rem; max-width: 100%; }
+            .subtitle { font-size: 0.9rem; margin: 0.5rem 0; }
+            .grid { gap: 0.25rem; margin-bottom: 0.4rem; }
+            .tile { font-size: 0.75rem; border-radius: 6px; padding: 0.2rem; }
+            .tile.long-text { font-size: 0.62rem; }
+            .mistakes { font-size: 0.85rem; margin-bottom: 0.4rem; }
+            .mistake-dot { width: 12px; height: 12px; }
+            .controls { gap: 0.35rem; }
+            .btn { padding: 0.55rem 0.9rem; font-size: 0.82rem; }
+            .completed-group-title { font-size: 0.75rem; }
+            .completed-group-items { font-size: 0.7rem; }
         }
-        
         @media (max-width: 375px) {
-            .container {
-                padding: 0.25rem 0.35rem;
-            }
-            
-            .grid {
-                gap: 0.2rem;
-            }
-            
-            .tile {
-                font-size: 0.7rem;
-                padding: 0.15rem;
-            }
-            
-            .btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.78rem;
-            }
+            .container { padding: 0.25rem 0.35rem; }
+            .grid { gap: 0.2rem; }
+            .tile { font-size: 0.7rem; padding: 0.15rem; }
+            .tile.long-text { font-size: 0.58rem; }
+            .btn { padding: 0.5rem 0.75rem; font-size: 0.78rem; }
         }
         
         /* iPhone Call Screen */
         .win-screen {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            background: #1c1c1e;
-            z-index: 10001;
-            display: none;
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            min-height: 100vh; min-height: -webkit-fill-available;
+            background: #1c1c1e; z-index: 10001; display: none;
         }
-        
-        .win-screen.show {
-            display: block;
-        }
-        
+        .win-screen.show { display: block; }
         .iphone-call {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 3rem 2rem 3rem;
-            color: #fff;
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: space-between; padding: 3rem 2rem 3rem; color: #fff;
         }
-        
-        .call-info {
-            text-align: center;
-            margin-top: 4rem;
-        }
-        
+        .call-info { text-align: center; margin-top: 4rem; }
         .caller-name {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            font-weight: 400;
+            font-size: 2.5rem; margin-bottom: 0.75rem; font-weight: 400;
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
         }
-        
-        .call-status {
-            font-size: 1.125rem;
-            color: #a1a1a1;
-            font-weight: 400;
-        }
-        
-        .call-actions {
-            display: flex;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-        
-        .call-action {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: #fff;
-        }
-        
+        .call-status { font-size: 1.125rem; color: #a1a1a1; font-weight: 400; }
+        .call-actions { display: flex; gap: 4rem; margin-bottom: 3rem; }
+        .call-action { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: #fff; }
         .action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.2); display: flex;
+            align-items: center; justify-content: center; font-size: 1.5rem;
         }
-        
-        .action-label {
-            font-size: 0.875rem;
-            color: #a1a1a1;
-        }
-        
+        .action-label { font-size: 0.875rem; color: #a1a1a1; }
         .slide-to-answer {
-            width: 100%;
-            max-width: 350px;
-            height: 70px;
-            background: rgba(120, 120, 128, 0.36);
-            border-radius: 35px;
-            position: relative;
-            overflow: hidden;
+            width: 100%; max-width: 350px; height: 70px;
+            background: rgba(120,120,128,0.36); border-radius: 35px;
+            position: relative; overflow: hidden;
         }
-        
         .slide-text {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem;
-            color: #fff;
-            z-index: 1;
-            pointer-events: none;
+            position: absolute; inset: 0; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 1.125rem; color: #fff; z-index: 1; pointer-events: none;
         }
-        
-        .slide-text .slide-word {
-            font-weight: 600;
-        }
-        
-        .slide-text .to-word {
-            opacity: 0.6;
-        }
-        
+        .slide-text .slide-word { font-weight: 600; }
+        .slide-text .to-word { opacity: 0.6; }
         .slide-button {
-            position: absolute;
-            left: 5px;
-            top: 5px;
-            width: 60px;
-            height: 60px;
+            position: absolute; left: 5px; top: 5px; width: 60px; height: 60px;
             background: linear-gradient(135deg, #34c759, #30d158);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: grab;
-            touch-action: none;
-            z-index: 2;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 1.5rem; cursor: grab;
+            touch-action: none; z-index: 2;
         }
+        .slide-button:active { cursor: grabbing; }
         
-        .slide-button:active {
-            cursor: grabbing;
-        }
-        
-        /* Timothee Reveal */
+        /* Reveal */
         .timothee-reveal {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            background: #fff;
-            z-index: 10002;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            min-height: 100vh; min-height: -webkit-fill-available;
+            background: #000; z-index: 10002; display: none;
+            flex-direction: column; align-items: center; justify-content: center; padding: 0;
         }
-        
-        .timothee-reveal.show {
-            display: flex;
-        }
-        
-        .timothee-reveal img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
+        .timothee-reveal.show { display: flex; }
+        .timothee-reveal img { width: 100%; height: 100%; object-fit: cover; }
         .end-call-btn {
-            position: absolute;
-            bottom: 4rem;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.875rem 2rem;
-            background: #007AFF;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s ease;
-            z-index: 10;
+            position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+            padding: 0.875rem 2rem; background: #007AFF; color: #fff;
+            border: none; border-radius: 24px; font-size: 1rem; font-weight: 600;
+            font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: none;
+            display: inline-block; z-index: 10;
         }
-        
-        .end-call-btn:hover {
-            background: #0051D5;
-        }
-        
-        .end-call-btn:active {
-            transform: scale(0.97);
+        .end-call-btn:hover { background: #0066DD; }
+        .audio-btn {
+            position: absolute; bottom: 1.2rem; right: 1rem;
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.3);
+            font-size: 14px; cursor: pointer; z-index: 11;
+            display: flex; align-items: center; justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -622,11 +266,8 @@
     <div class="container">
         <h1 class="title">Connections</h1>
         <p class="subtitle">Create four groups of four!</p>
-        
         <div class="completed-groups" id="completedGroups"></div>
-        
         <div class="grid" id="grid"></div>
-        
         <div class="mistakes">
             <div>Mistakes Remaining:</div>
             <div class="mistake-dots" id="mistakeDots">
@@ -636,14 +277,11 @@
                 <div class="mistake-dot"></div>
             </div>
         </div>
-        
         <div class="controls">
             <button class="btn" id="shuffleBtn">Shuffle</button>
             <button class="btn" id="deselectBtn" disabled>Deselect all</button>
             <button class="btn btn-submit" id="submitBtn" disabled>Submit</button>
         </div>
-        
-        <!-- Inline congratulations (appears below answers) -->
         <div class="inline-win" id="inlineWin">
             <div class="inline-win-message">Congratulations!</div>
             <button class="inline-win-btn" id="showPhoneBtn">Back to puzzles</button>
@@ -654,94 +292,56 @@
 
     <script>
         const categories = [
-            {
-                name: "On the floor",
-                color: "yellow",
-                items: ["Tyler's pants", "Dryer sheets", "No fly zone", "Kingfun"]
-            },
-            {
-                name: "Daily routine",
-                color: "green",
-                items: ["Starbucks", "Puzzles", "Shops", "Crying"]
-            },
-            {
-                name: "Tyler has helped teach Kelly",
-                color: "blue",
-                items: ["Patience", "Acceptance", "Love", "The rules"]
-            },
-            {
-                name: "Beginning with a food",
-                color: "purple",
-                items: ["Lemonhead", "Turkey Bullshit", "Celery Farm", "Blueberry Island"],
-                tileLabels: {"Lemonhead": "Head", "Turkey Bullshit": "Bullshit", "Celery Farm": "Farm", "Blueberry Island": "Island"}
-            }
+            { name: "On the floor", color: "yellow", items: ["Tyler's pants", "Dryer sheets", "No fly zone", "Kingfun"] },
+            { name: "Daily routine", color: "green", items: ["Starbucks", "Puzzles", "Shops", "Crying"] },
+            { name: "Tyler has helped teach Kelly", color: "blue", items: ["Patience", "Acceptance", "Love", "The rules"] },
+            { name: "Beginning with a food", color: "purple", items: ["Lemonhead", "Turkey Bullshit", "Celery Farm", "Blueberry Island"],
+              tileLabels: {"Lemonhead": "Head", "Turkey Bullshit": "Bullshit", "Celery Farm": "Farm", "Blueberry Island": "Island"} }
         ];
         
-        let tiles = [];
-        let selectedTiles = [];
-        let foundGroups = [];
-        let mistakesRemaining = 4;
+        let tiles = [], selectedTiles = [], foundGroups = [], mistakesRemaining = 4;
         
         function init() {
-            tiles = categories.flatMap(cat => 
+            tiles = categories.flatMap(cat =>
                 cat.items.map(item => ({
                     text: item,
                     displayText: (cat.tileLabels && cat.tileLabels[item]) || item,
-                    category: cat.name,
-                    color: cat.color
+                    category: cat.name, color: cat.color
                 }))
             );
             shuffle(tiles);
             renderGrid();
-            
             document.getElementById('shuffleBtn').addEventListener('click', shuffleTiles);
             document.getElementById('deselectBtn').addEventListener('click', deselectAll);
             document.getElementById('submitBtn').addEventListener('click', submitGuess);
         }
         
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        function shuffle(a) { for (let i=a.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
         
         function renderGrid() {
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
-            
             tiles.forEach((tile, index) => {
-                const tileEl = document.createElement('div');
-                tileEl.className = 'tile';
-                tileEl.textContent = tile.displayText;
-                tileEl.dataset.index = index;
-                tileEl.addEventListener('click', () => toggleTile(index));
-                grid.appendChild(tileEl);
+                const el = document.createElement('div');
+                el.className = 'tile';
+                if (tile.displayText.length > 8) el.classList.add('long-text');
+                el.textContent = tile.displayText;
+                el.dataset.index = index;
+                el.addEventListener('click', () => toggleTile(index));
+                grid.appendChild(el);
             });
         }
         
         function toggleTile(index) {
-            const tileIndex = selectedTiles.indexOf(index);
-            
-            if (tileIndex > -1) {
-                selectedTiles.splice(tileIndex, 1);
-            } else {
-                if (selectedTiles.length < 4) {
-                    selectedTiles.push(index);
-                }
-            }
-            
-            updateTileStates();
-            updateButtons();
+            const i = selectedTiles.indexOf(index);
+            if (i > -1) selectedTiles.splice(i, 1);
+            else if (selectedTiles.length < 4) selectedTiles.push(index);
+            updateTileStates(); updateButtons();
         }
         
         function updateTileStates() {
             document.querySelectorAll('.tile').forEach((el, idx) => {
-                if (selectedTiles.includes(idx)) {
-                    el.classList.add('selected');
-                } else {
-                    el.classList.remove('selected');
-                }
+                el.classList.toggle('selected', selectedTiles.includes(idx));
             });
         }
         
@@ -750,38 +350,19 @@
             document.getElementById('submitBtn').disabled = selectedTiles.length !== 4;
         }
         
-        function deselectAll() {
-            selectedTiles = [];
-            updateTileStates();
-            updateButtons();
-        }
-        
-        function shuffleTiles() {
-            shuffle(tiles);
-            selectedTiles = [];
-            renderGrid();
-            updateButtons();
-        }
+        function deselectAll() { selectedTiles = []; updateTileStates(); updateButtons(); }
+        function shuffleTiles() { shuffle(tiles); selectedTiles = []; renderGrid(); updateButtons(); }
         
         let isSubmitting = false;
         
         function submitGuess() {
             if (isSubmitting) return;
             isSubmitting = true;
-            
             const selected = selectedTiles.map(i => tiles[i]);
             const guessCategories = [...new Set(selected.map(t => t.category))];
-            
             const selectedTexts = selected.map(t => t.text).sort().join(',');
-            const alreadyGuessed = foundGroups.some(group => 
-                [...group.items].sort().join(',') === selectedTexts
-            );
-            
-            if (alreadyGuessed) {
-                showMessage('Already guessed!', true);
-                isSubmitting = false;
-                return;
-            }
+            const alreadyGuessed = foundGroups.some(g => [...g.items].sort().join(',') === selectedTexts);
+            if (alreadyGuessed) { showMessage('Already guessed!', true); isSubmitting = false; return; }
             
             if (guessCategories.length === 1) {
                 selectedTiles.forEach(i => {
@@ -789,81 +370,35 @@
                     tile.classList.add('bounce');
                     setTimeout(() => tile.classList.remove('bounce'), 500);
                 });
-                
                 const category = guessCategories[0];
-                const foundCategory = {
-                    name: category,
-                    color: selected[0].color,
-                    items: selected.map(t => t.text)
-                };
-                
+                const foundCategory = { name: category, color: selected[0].color, items: selected.map(t => t.text) };
                 setTimeout(() => {
                     foundGroups.push(foundCategory);
-                    
                     tiles = tiles.filter(t => t.category !== category);
                     selectedTiles = [];
-                    
                     renderCompletedGroups();
                     renderGrid();
                     updateButtons();
                     isSubmitting = false;
-                    
-                    if (foundGroups.length === 4) {
-                        showWinScreen();
-                    }
+                    if (foundGroups.length === 4) showWinScreen();
                 }, 500);
-            } else if (guessCategories.length === 2) {
-                const categoryCounts = {};
-                selected.forEach(t => {
-                    categoryCounts[t.category] = (categoryCounts[t.category] || 0) + 1;
-                });
-                
-                if (Object.values(categoryCounts).includes(3)) {
-                    showMessage('One away...', true);
-                }
-                
-                mistakesRemaining--;
-                updateMistakes();
-                
-                selectedTiles.forEach(i => {
-                    const tile = document.querySelector(`[data-index="${i}"]`);
-                    tile.classList.add('shake');
-                    setTimeout(() => tile.classList.remove('shake'), 400);
-                });
-                
-                if (mistakesRemaining === 0) {
-                    showMessage('I see no mistakes so here is a recharge!');
-                    selectedTiles = [];
-                    updateTileStates();
-                    updateButtons();
-                    setTimeout(() => {
-                        mistakesRemaining = 4;
-                        updateMistakes();
-                        isSubmitting = false;
-                    }, 1500);
-                } else {
-                    setTimeout(() => { isSubmitting = false; }, 500);
-                }
             } else {
+                if (guessCategories.length === 2) {
+                    const cc = {};
+                    selected.forEach(t => { cc[t.category] = (cc[t.category]||0)+1; });
+                    if (Object.values(cc).includes(3)) showMessage('One away...', true);
+                }
                 mistakesRemaining--;
                 updateMistakes();
-                
                 selectedTiles.forEach(i => {
                     const tile = document.querySelector(`[data-index="${i}"]`);
                     tile.classList.add('shake');
                     setTimeout(() => tile.classList.remove('shake'), 400);
                 });
-                
                 if (mistakesRemaining === 0) {
                     showMessage('I see no mistakes so here is a recharge!');
-                    selectedTiles = [];
-                    updateTileStates();
-                    updateButtons();
-                    setTimeout(() => {
-                        mistakesRemaining = 4;
-                        updateMistakes();
-                        isSubmitting = false;
-                    }, 1500);
+                    selectedTiles = []; updateTileStates(); updateButtons();
+                    setTimeout(() => { mistakesRemaining = 4; updateMistakes(); isSubmitting = false; }, 1500);
                 } else {
                     setTimeout(() => { isSubmitting = false; }, 500);
                 }
@@ -873,26 +408,28 @@
         function renderCompletedGroups() {
             const container = document.getElementById('completedGroups');
             container.innerHTML = '';
+            // Measure tile height for matching
+            const firstTile = document.querySelector('.tile');
+            const tileH = firstTile ? firstTile.offsetHeight : null;
+            // Fallback: calculate from grid width
+            const grid = document.getElementById('grid');
+            const gridW = grid.offsetWidth;
+            const gap = parseFloat(getComputedStyle(grid).gap) || 4;
+            const calcH = (gridW - gap * 3) / 4;
+            const rowHeight = tileH || calcH;
             
             foundGroups.forEach(group => {
-                const groupEl = document.createElement('div');
-                groupEl.className = `completed-group ${group.color}`;
-                groupEl.innerHTML = `
-                    <div class="completed-group-title">${group.name}</div>
-                    <div class="completed-group-items">${group.items.join(', ')}</div>
-                `;
-                container.appendChild(groupEl);
+                const el = document.createElement('div');
+                el.className = `completed-group ${group.color}`;
+                el.style.height = rowHeight + 'px';
+                el.innerHTML = `<div class="completed-group-title">${group.name}</div><div class="completed-group-items">${group.items.join(', ')}</div>`;
+                container.appendChild(el);
             });
         }
         
         function updateMistakes() {
-            const dots = document.querySelectorAll('.mistake-dot');
-            dots.forEach((dot, i) => {
-                if (i >= mistakesRemaining) {
-                    dot.classList.add('used');
-                } else {
-                    dot.classList.remove('used');
-                }
+            document.querySelectorAll('.mistake-dot').forEach((dot, i) => {
+                dot.classList.toggle('used', i >= mistakesRemaining);
             });
         }
         
@@ -904,15 +441,9 @@
         }
         
         function showWinScreen() {
-            // Hide the game controls
             document.querySelector('.mistakes').style.display = 'none';
             document.querySelector('.controls').style.display = 'none';
-            
-            // Show inline congratulations below the completed groups
-            const inlineWin = document.getElementById('inlineWin');
-            inlineWin.classList.add('show');
-            
-            // "Back to puzzles" → phone screen
+            document.getElementById('inlineWin').classList.add('show');
             document.getElementById('showPhoneBtn').addEventListener('click', () => {
                 document.getElementById('winScreen').classList.add('show');
                 setupPhoneSlider();
@@ -923,61 +454,36 @@
             const slider = document.getElementById('slideToAnswer');
             const button = document.getElementById('slideButton');
             const text = document.getElementById('slideText');
-            let isDragging = false;
-            let startX = 0;
-            let currentX = 0;
-            
-            const handleStart = (e) => {
-                isDragging = true;
-                startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-                button.style.transition = 'none';
-            };
-            
+            let isDragging = false, startX = 0, currentX = 0;
+            const handleStart = (e) => { isDragging = true; startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX; button.style.transition = 'none'; };
             const handleMove = (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                
+                if (!isDragging) return; e.preventDefault();
                 const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-                const deltaX = clientX - startX;
                 const maxSlide = slider.offsetWidth - button.offsetWidth - 10;
-                
-                currentX = Math.max(0, Math.min(deltaX, maxSlide));
+                currentX = Math.max(0, Math.min(clientX - startX, maxSlide));
                 button.style.left = currentX + 'px';
-                
                 text.style.opacity = 1 - (currentX / maxSlide);
-                
-                if (currentX > maxSlide * 0.8) {
-                    answerCall();
-                }
+                if (currentX > maxSlide * 0.8) answerCall();
             };
-            
-            const handleEnd = () => {
-                if (!isDragging) return;
-                isDragging = false;
-                button.style.transition = 'left 0.3s ease';
-                button.style.left = '5px';
-                text.style.opacity = 1;
-            };
-            
+            const handleEnd = () => { if (!isDragging) return; isDragging = false; button.style.transition = 'left 0.3s ease'; button.style.left = '5px'; text.style.opacity = 1; };
             const answerCall = () => {
                 isDragging = false;
                 document.getElementById('winScreen').classList.remove('show');
                 document.getElementById('timotheeReveal').classList.add('show');
-                
                 const music = document.getElementById('victoryMusic');
-                music.currentTime = 0;
-                music.play().catch(e => {
-                    console.log('Audio play failed:', e);
-                    document.getElementById('timotheeReveal').addEventListener('click', () => {
-                        music.play().catch(() => {});
-                    }, { once: true });
-                });
+                const audioBtn = document.getElementById('audioBtn');
+                music.volume = 1.0; music.currentTime = 0;
+                function forcePlay() { music.play().then(() => { clearInterval(ri); audioBtn.style.display='none'; }).catch(()=>{}); }
+                forcePlay();
+                const ri = setInterval(forcePlay, 500);
+                setTimeout(() => clearInterval(ri), 10000);
+                ['touchstart','touchend','click','scroll'].forEach(evt => { document.addEventListener(evt, ()=>forcePlay(), {once:true}); });
+                audioBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); music.currentTime=0; music.play().then(()=>{audioBtn.style.display='none';clearInterval(ri);}).catch(()=>{}); });
+                document.getElementById('endCallBtn').addEventListener('click', () => { music.pause(); clearInterval(ri); });
             };
-            
             button.addEventListener('mousedown', handleStart);
             document.addEventListener('mousemove', handleMove);
             document.addEventListener('mouseup', handleEnd);
-            
             button.addEventListener('touchstart', handleStart);
             document.addEventListener('touchmove', handleMove, { passive: false });
             document.addEventListener('touchend', handleEnd);
@@ -986,41 +492,29 @@
         init();
     </script>
     
-    <!-- iPhone Call Screen -->
     <div id="winScreen" class="win-screen">
         <div class="iphone-call">
             <div class="call-info">
-                <div class="caller-name">💗</div>
-                <div class="call-status">answer quickly</div>
+                <div class="caller-name">&#x1F497;</div>
+                <div class="call-status">answer quick!</div>
             </div>
             <div class="call-actions">
-                <div class="call-action">
-                    <div class="action-icon">🔔</div>
-                    <div class="action-label">Remind Me</div>
-                </div>
-                <div class="call-action">
-                    <div class="action-icon">💬</div>
-                    <div class="action-label">Message</div>
-                </div>
+                <div class="call-action"><div class="action-icon">&#x1F514;</div><div class="action-label">Remind Me</div></div>
+                <div class="call-action"><div class="action-icon">&#x1F4AC;</div><div class="action-label">Message</div></div>
             </div>
             <div class="slide-to-answer" id="slideToAnswer">
-                <div class="slide-text" id="slideText">
-                    <span class="slide-word">slide</span> <span class="to-word">to answer</span>
-                </div>
-                <div class="slide-button" id="slideButton">📞</div>
+                <div class="slide-text" id="slideText"><span class="slide-word">slide</span> <span class="to-word">to answer</span></div>
+                <div class="slide-button" id="slideButton"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.31.03.66-.25 1.02l-2.2 2.2z"/></svg></div>
             </div>
         </div>
     </div>
     
-    <!-- Timothee Reveal -->
     <div id="timotheeReveal" class="timothee-reveal">
         <img src="timotheecongratulations.png" alt="Congrats on the connections babe">
-        <a href="index.html" class="end-call-btn">End Call</a>
+        <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
+        <button class="audio-btn" id="audioBtn">&#x266A;</button>
     </div>
     
-    <!-- Victory Music -->
-    <audio id="victoryMusic" preload="auto">
-        <source src="cmbyn.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="victoryMusic" preload="auto"><source src="cmbyn.mp3" type="audio/mpeg"></audio>
 </body>
 </html>
