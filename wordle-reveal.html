@@ -49,12 +49,32 @@
         .end-call-btn:hover {
             background: #0066DD;
         }
+
+        .audio-btn {
+            position: absolute;
+            bottom: 1.2rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 11;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+        }
     </style>
 </head>
 <body>
     <div class="reveal-container">
         <img src="icecreamcongratulations.png" alt="Congratulations!">
         <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
+        <button class="audio-btn" id="audioBtn">♪</button>
     </div>
 
     <audio id="victoryMusic" preload="auto">
@@ -63,12 +83,14 @@
 
     <script>
         const music = document.getElementById('victoryMusic');
+        const audioBtn = document.getElementById('audioBtn');
         music.volume = 1.0;
         music.currentTime = 0;
 
         function forcePlay() {
             music.play().then(() => {
                 clearInterval(retryInterval);
+                audioBtn.style.display = 'none';
             }).catch(() => {});
         }
 
@@ -80,6 +102,16 @@
             document.addEventListener(evt, () => {
                 forcePlay();
             }, { once: true });
+        });
+
+        audioBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            music.currentTime = 0;
+            music.play().then(() => {
+                audioBtn.style.display = 'none';
+                clearInterval(retryInterval);
+            }).catch(() => {});
         });
 
         document.getElementById('endCallBtn').addEventListener('click', () => {
