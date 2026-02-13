@@ -6,61 +6,21 @@
     <title>Call Connected</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .reveal-container {
-            width: 100%;
-            height: 100vh;
-            height: 100dvh;
-            position: relative;
-        }
-
-        .reveal-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .end-call-btn {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.875rem 2rem;
-            background: #007AFF;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            z-index: 10;
-        }
-
-        .end-call-btn:hover {
-            background: #0066DD;
-        }
+        html, body { height: 100%; overflow: hidden; background: #000; }
+        .reveal-container { width: 100%; height: 100vh; height: 100dvh; position: relative; }
+        .reveal-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .end-call-btn { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); padding: 0.875rem 2rem; background: #007AFF; color: #fff; border: none; border-radius: 24px; font-size: 1rem; font-weight: 600; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; cursor: pointer; text-decoration: none; display: inline-block; z-index: 10; }
+        .end-call-btn:hover { background: #0066DD; }
     </style>
 </head>
 <body>
     <div class="reveal-container">
-        <img src="chineseprivacy.png" alt="Your data is safe">
+        <img src="CongratulationsLemonhead.png" alt="Congratulations you found me!">
         <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
     </div>
-
     <audio id="victoryMusic" preload="auto">
-        <source src="chinesesong.mov" type="audio/mp4">
+        <source src="lemonheadsong.mov" type="audio/mp4">
     </audio>
-
     <script>
         const music = document.getElementById('victoryMusic');
         music.volume = 1.0;
@@ -75,8 +35,10 @@
 
         forcePlay();
         const retryInterval = setInterval(forcePlay, 500);
+        // Stop retrying after 10 seconds
         setTimeout(() => clearInterval(retryInterval), 10000);
 
+        // Also try on any user interaction
         ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
             document.addEventListener(evt, () => {
                 forcePlay();
