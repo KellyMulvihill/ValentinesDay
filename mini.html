@@ -47,7 +47,7 @@
     .wetlands-reveal{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:-webkit-fill-available;background:#fff;z-index:10002;display:none;flex-direction:column;align-items:center;justify-content:center;padding:0;}
     .wetlands-reveal.show{display:flex;}
     .wetlands-reveal img{width:100%;height:100%;object-fit:cover;}
-    .end-call-btn{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);padding:.875rem 2rem;background:#007AFF;color:#fff;border:none;border-radius:24px;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s ease;z-index:10;}
+    .end-call-btn{position:absolute;bottom:4rem;left:50%;transform:translateX(-50%);padding:.875rem 2rem;background:#007AFF;color:#fff;border:none;border-radius:24px;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s ease;z-index:10;}
     .end-call-btn:hover{background:#0051D5;}
     .end-call-btn:active{transform:translateX(-50%) scale(.97);}
   
@@ -252,7 +252,13 @@ document.getElementById("closeVictory")?.addEventListener("click", () => {
         isDragging = false;
         document.getElementById("winScreen").classList.remove("show");
         document.getElementById("wetlandsReveal").classList.add("show");
-        document.getElementById("victoryMusic").play().catch(() => {});
+        const music = document.getElementById("victoryMusic");
+        music.currentTime = 0;
+        music.play().catch(() => {
+          document.getElementById("wetlandsReveal").addEventListener("click", () => {
+            music.play().catch(() => {});
+          }, { once: true });
+        });
       };
 
       button.addEventListener("mousedown", handleStart);

@@ -463,7 +463,7 @@
 
         .end-call-btn {
             position: absolute;
-            bottom: 2rem;
+            bottom: 4rem;
             left: 50%;
             transform: translateX(-50%);
             padding: 0.875rem 2rem;
@@ -924,7 +924,14 @@
                 document.getElementById('revealScreen').classList.add('show');
 
                 const music = document.getElementById('victoryMusic');
-                music.play().catch(e => console.log('Audio play failed:', e));
+                music.currentTime = 0;
+                music.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                    // Fallback: play on next tap
+                    document.getElementById('revealScreen').addEventListener('click', () => {
+                        music.play().catch(() => {});
+                    }, { once: true });
+                });
             };
 
             button.addEventListener('mousedown', handleStart);

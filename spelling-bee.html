@@ -176,12 +176,12 @@
             flex-direction: column;
             align-items: center;
             flex: 1;
-            padding: 2rem 1rem;
+            padding: 1rem 1rem;
         }
         
         .input-section {
             width: 100%;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
             position: relative;
             min-height: 60px;
             display: flex;
@@ -231,7 +231,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 1rem 0 2rem;
+            margin: 0.25rem 0 1.5rem;
             position: relative;
             width: 100%;
             max-width: 400px;
@@ -354,8 +354,20 @@
         }
         
         .btn-shuffle img {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
+        }
+        
+        @media (max-width: 640px) {
+            .btn-shuffle {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .btn-shuffle img {
+                width: 26px;
+                height: 26px;
+            }
         }
         
         .message {
@@ -619,7 +631,7 @@
         
         .end-call-btn {
             position: absolute;
-            bottom: 2rem;
+            bottom: 4rem;
             left: 50%;
             transform: translateX(-50%);
             padding: 0.875rem 2rem;
@@ -1069,7 +1081,13 @@
                 document.getElementById('lemonheadReveal').classList.add('show');
                 
                 const music = document.getElementById('victoryMusic');
-                music.play().catch(e => console.log('Audio play failed:', e));
+                music.currentTime = 0;
+                music.play().catch(e => {
+                    console.log('Audio play failed:', e);
+                    document.getElementById('lemonheadReveal').addEventListener('click', () => {
+                        music.play().catch(() => {});
+                    }, { once: true });
+                });
             };
             
             button.addEventListener('mousedown', handleStart);
