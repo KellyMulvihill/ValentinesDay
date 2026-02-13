@@ -2,32 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Privacy Policy</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
-            height: 100%;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #ffffff;
             min-height: 100vh;
-            min-height: 100dvh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ─── Header ─── */
         .header {
             display: flex;
             align-items: center;
             padding: 1rem 1.5rem;
-            padding-top: calc(1rem + env(safe-area-inset-top, 0px));
             background: white;
             border-bottom: 1px solid #e0e0e0;
         }
@@ -52,7 +45,6 @@
             margin-top: 2px;
         }
 
-        /* ─── Content ─── */
         .content {
             flex: 1;
             display: flex;
@@ -91,7 +83,10 @@
             font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: all 0.2s ease;
-
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            line-height: 1.4;
         }
 
         .allow-btn:hover {
@@ -102,250 +97,9 @@
         .allow-btn:active {
             transform: scale(0.98);
         }
-
-        /* ─── Victory Popup (Congratulations) ─── */
-        .victory-popup {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .victory-popup.show {
-            display: flex;
-        }
-
-        .victory-content {
-            background: #fff;
-            padding: 3rem 2.5rem;
-            border-radius: 16px;
-            text-align: center;
-            max-width: 400px;
-            margin: 0 1rem;
-            position: relative;
-        }
-
-        .close-victory {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: rgba(0,0,0,0.08);
-            background: none;
-            border: none;
-            line-height: 1;
-        }
-
-        .victory-message {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #000;
-        }
-
-        .back-to-puzzles-btn {
-            padding: 0.875rem 2rem;
-            background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .back-to-puzzles-btn:hover {
-            background: #333;
-        }
-
-        /* ─── iPhone Call Screen ─── */
-        .win-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            background: #1c1c1e;
-            z-index: 10001;
-            display: none;
-        }
-
-        .win-screen.show {
-            display: block;
-        }
-
-        .iphone-call {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: calc(3rem + env(safe-area-inset-top, 0px)) 2rem calc(3rem + env(safe-area-inset-bottom, 0px));
-            color: #fff;
-        }
-
-        .call-info {
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .caller-name {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            font-weight: 400;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-        }
-
-        .call-status {
-            font-size: 1.125rem;
-            color: #a1a1a1;
-            font-weight: 400;
-        }
-
-        .call-actions {
-            display: flex;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .call-action {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: #fff;
-        }
-
-        .action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .action-label {
-            font-size: 0.875rem;
-            color: #a1a1a1;
-        }
-
-        .slide-to-answer {
-            width: 100%;
-            max-width: 350px;
-            height: 70px;
-            background: rgba(120, 120, 128, 0.36);
-            border-radius: 35px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            user-select: none;
-        }
-
-        .slide-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-size: 1.15rem;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .slide-word {
-            font-weight: 600;
-        }
-
-        .to-word {
-            opacity: 0.6;
-        }
-
-        .slide-button {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #34c759, #30d158);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: grab;
-            touch-action: none;
-            z-index: 2;
-        }
-
-        /* ─── Reveal Screen ─── */
-        .reveal-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            background: #000;
-            z-index: 10002;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-
-        .reveal-screen.show {
-            display: flex;
-        }
-
-        .reveal-screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .end-call-btn {
-            position: absolute;
-            bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.875rem 2rem;
-            background: #007AFF;
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s ease;
-            z-index: 10;
-        }
-
-        .end-call-btn:hover {
-            background: #0066DD;
-        }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <div class="header">
         <a href="index.html" class="back-btn">
             <span>‹</span>
@@ -353,138 +107,11 @@
         </a>
     </div>
 
-    <!-- Content -->
     <div class="content">
         <div class="chinese-text-bg">
             隐私政策。我们非常重视您的隐私。本隐私政策旨在帮助您了解我们收集哪些信息、为什么收集这些信息，以及您如何更新、管理、导出和删除自己的信息。我们收集信息是为了向所有用户提供更好的服务，包括确定基本内容，例如您使用的语言，以及更为复杂的内容，例如哪些广告对您最有用、在网上对您最重要的人或者您可能喜欢的视频。我们收集的信息以及该信息的用途取决于您如何使用我们的服务以及您如何管理自己的隐私控件。当您未登录某个帐号时，我们会使用与您所用的浏览器、应用或设备相关联的唯一标识符来存储所收集的信息。这样做可以帮助我们实现一些目的，例如在不同的浏览会话中保持您的语言偏好设置。当您已登录时，我们还会收集存储在您帐号中的信息，我们将这些信息视为个人信息。您在使用我们的服务时创建或提供给我们的信息。当您创建帐号时，您需要向我们提供个人信息，其中包括您的姓名和密码。您也可以选择在自己的帐号中添加电话号码或付款信息。即使您未登录帐号，您也可以选择向我们提供信息，例如提供电子邮件地址以便接收我们的服务相关最新动态。我们还会收集您在使用我们的服务时创建、上传或从其他方收到的内容。这包括您撰写和收到的电子邮件、保存的照片和视频、您创建的文档和电子表格，以及您在视频上发表的评论等内容。我们的服务器会自动收集您在使用我们的服务时产生的某些信息。这些信息包括您的搜索查询、互联网协议地址、设备事件信息（例如崩溃、系统活动、硬件设置、浏览器类型、浏览器语言、请求日期和时间、引荐来源网址）。您在设备上的活动信息。我们使用各种技术来收集和存储信息，包括各种数据存储机制、应用数据缓存以及类似技术。在您将数据与我们的服务相关联时，我们可能会结合从其他产品中收集的信息来提高服务质量。我们将信息用于以下用途：提供我们的服务、维护和改进我们的服务、开发新的服务、提供个性化服务（包括内容和广告）、衡量效果、与您沟通、保护我们的用户和公众。在此隐私权政策适用的情况下，只有征得您的同意，我们才会将信息用于本隐私权政策未涵盖的其他用途。我们使用自动化系统来分析您的内容，以便为您提供相关的产品功能，例如自定义搜索结果、个性化广告或基于内容使用方式的其他功能。我们也会分析您的内容，以帮助我们检测滥用行为，例如垃圾邮件、恶意软件和非法内容。我们还使用算法来识别数据中的模式。当我们发现垃圾邮件、恶意软件、非法内容和其他形式的滥用行为时，我们可能会停用您的帐号或采取其他适当措施。在某些情况下，我们可能还会向相关政府机构举报违规行为。您的信息安全对我们至关重要。我们会竭力保护您和我们的数据免遭未经授权的访问、篡改、披露或销毁，具体措施包括使用加密技术确保数据在传输过程中的私密性、提供安全浏览等功能来帮助保护您的帐号以及审查我们在信息收集、存储和处理方面的做法。本政策自发布之日起生效，我们保留随时更改本政策的权利。
         </div>
-        <button class="allow-btn" id="allowBtn">Allow Access<br>(it's okay)</button>
+        <a href="privacy-call.html" class="allow-btn">Allow Access<br>(it's okay)</a>
     </div>
-
-    <!-- Congratulations Popup -->
-    <div id="victoryPopup" class="victory-popup">
-        <div class="victory-content">
-            <button class="close-victory" id="closeVictory">✕</button>
-            <div class="victory-message">Congratulations!</div>
-            <button class="back-to-puzzles-btn" id="showPhoneBtn">Back to puzzles</button>
-        </div>
-    </div>
-
-    <!-- iPhone Call Screen -->
-    <div id="winScreen" class="win-screen">
-        <div class="iphone-call">
-            <div class="call-info">
-                <div class="caller-name">👾</div>
-                <div class="call-status">answer quickly</div>
-            </div>
-            <div class="call-actions">
-                <div class="call-action">
-                    <div class="action-icon">🔔</div>
-                    <div class="action-label">Remind Me</div>
-                </div>
-                <div class="call-action">
-                    <div class="action-icon">💬</div>
-                    <div class="action-label">Message</div>
-                </div>
-            </div>
-            <div class="slide-to-answer" id="slideToAnswer">
-                <div class="slide-text" id="slideText">
-                    <span class="slide-word">slide</span> <span class="to-word">to answer</span>
-                </div>
-                <div class="slide-button" id="slideButton">📞</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Reveal Screen -->
-    <div id="revealScreen" class="reveal-screen">
-        <img src="chineseprivacy.png" alt="Your data is safe">
-        <a href="index.html" class="end-call-btn">End Call</a>
-    </div>
-
-    <audio id="victoryMusic" preload="auto">
-        <source src="chinesesong.mov" type="audio/mp4">
-    </audio>
-
-    <script>
-        // Allow button → phone screen directly
-        document.getElementById('allowBtn').addEventListener('click', () => {
-            window.scrollTo(0, 0);
-            document.getElementById('winScreen').classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Close victory X (if used)
-        document.getElementById('closeVictory').addEventListener('click', () => {
-            document.getElementById('victoryPopup').classList.remove('show');
-        });
-
-        // Back to puzzles → phone screen
-        document.getElementById('showPhoneBtn').addEventListener('click', () => {
-            document.getElementById('victoryPopup').classList.remove('show');
-            document.getElementById('winScreen').classList.add('show');
-        });
-
-        // Slide to answer
-        const slider = document.getElementById('slideToAnswer');
-        const button = document.getElementById('slideButton');
-        const text = document.getElementById('slideText');
-        let isDragging = false;
-        let startX = 0;
-        let currentX = 0;
-
-        const handleStart = (e) => {
-            isDragging = true;
-            startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-            button.style.transition = 'none';
-        };
-
-        const handleMove = (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-            const deltaX = clientX - startX;
-            const maxSlide = slider.offsetWidth - button.offsetWidth - 10;
-            currentX = Math.max(0, Math.min(deltaX, maxSlide));
-            button.style.left = currentX + 'px';
-            text.style.opacity = 1 - (currentX / maxSlide);
-
-            if (currentX > maxSlide * 0.8) {
-                answerCall();
-            }
-        };
-
-        const handleEnd = () => {
-            if (!isDragging) return;
-            isDragging = false;
-            button.style.transition = 'left 0.3s ease';
-            button.style.left = '5px';
-            text.style.opacity = 1;
-        };
-
-        const answerCall = () => {
-            isDragging = false;
-            window.scrollTo(0, 0);
-            document.getElementById('winScreen').classList.remove('show');
-            document.getElementById('revealScreen').classList.add('show');
-            document.body.style.overflow = 'hidden';
-
-            const music = document.getElementById('victoryMusic');
-            music.currentTime = 0;
-            music.play().catch(e => {
-                console.log('Audio play failed:', e);
-                document.getElementById('revealScreen').addEventListener('click', () => {
-                    music.play().catch(() => {});
-                }, { once: true });
-            });
-        };
-
-        button.addEventListener('mousedown', handleStart);
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('mouseup', handleEnd);
-        button.addEventListener('touchstart', handleStart);
-        document.addEventListener('touchmove', handleMove, { passive: false });
-        document.addEventListener('touchend', handleEnd);
-    </script>
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Call Connected</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .reveal-container {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            position: relative;
+        }
+
+        .reveal-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .end-call-btn {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.875rem 2rem;
+            background: #007AFF;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            z-index: 10;
+        }
+
+        .end-call-btn:hover {
+            background: #0066DD;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal-container">
+        <img src="chineseprivacy.png" alt="Your data is safe">
+        <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
+    </div>
+
+    <audio id="victoryMusic" preload="auto">
+        <source src="chinesesong.mov" type="audio/mp4">
+    </audio>
+
+    <script>
+        // Auto-play music when page loads
+        const music = document.getElementById('victoryMusic');
+        music.currentTime = 0;
+        music.play().catch(e => {
+            console.log('Audio autoplay blocked, will play on tap');
+            document.addEventListener('click', () => {
+                music.play().catch(() => {});
+            }, { once: true });
+        });
+
+        // Stop music when leaving
+        document.getElementById('endCallBtn').addEventListener('click', () => {
+            music.pause();
+        });
+    </script>
+</body>
+</html>
