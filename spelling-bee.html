@@ -400,8 +400,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1500;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
             display: none;
             align-items: center;
             justify-content: center;
@@ -418,6 +418,19 @@
             text-align: center;
             max-width: 400px;
             margin: 0 1rem;
+            position: relative;
+        }
+        
+        .close-victory {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: rgba(0,0,0,0.08);
+            background: none;
+            border: none;
+            line-height: 1;
         }
         
         .victory-message {
@@ -451,12 +464,13 @@
         /* iPhone Call Screen */
         .win-screen {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             background: #1c1c1e;
-            z-index: 2000;
+            z-index: 10001;
             display: none;
         }
         
@@ -538,15 +552,13 @@
         
         .slide-text {
             position: absolute;
-            width: 100%;
-            text-align: center;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.125rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: #fff;
+            font-size: 1.15rem;
+            white-space: nowrap;
             pointer-events: none;
-            transition: opacity 0.3s;
-            font-weight: 400;
         }
         
         .slide-text .slide-word {
@@ -554,7 +566,7 @@
         }
         
         .slide-text .to-word {
-            color: rgba(255, 255, 255, 0.6);
+            opacity: 0.6;
         }
         
         .slide-button {
@@ -563,15 +575,15 @@
             top: 5px;
             width: 60px;
             height: 60px;
-            background: #fff;
+            background: linear-gradient(135deg, #34c759, #30d158);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
-            transition: left 0.3s ease;
+            font-size: 1.5rem;
             cursor: grab;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            touch-action: none;
+            z-index: 2;
         }
         
         .slide-button:active {
@@ -581,12 +593,13 @@
         /* Lemonhead Reveal */
         .lemonhead-reveal {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             background: #fff;
-            z-index: 2001;
+            z-index: 10002;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -950,6 +963,7 @@
     <!-- Victory Popup -->
     <div id="victoryPopup" class="victory-popup">
         <div class="victory-content">
+            <button class="close-victory" id="closeVictory">✕</button>
             <div class="victory-message">Congratulations!</div>
             <button class="back-to-puzzles-btn" id="showPhoneBtn">Back to puzzles</button>
         </div>
@@ -960,7 +974,7 @@
         <div class="iphone-call">
             <div class="call-info">
                 <div class="caller-name">🍋</div>
-                <div class="call-status">answer quickly.</div>
+                <div class="call-status">answer quickly</div>
             </div>
             <div class="call-actions">
                 <div class="call-action">
@@ -996,6 +1010,11 @@
         // Phone call flow functions
         function showVictoryPopup() {
             document.getElementById('victoryPopup').classList.add('show');
+            
+            // Close X button
+            document.getElementById('closeVictory').addEventListener('click', () => {
+                document.getElementById('victoryPopup').classList.remove('show');
+            });
             
             document.getElementById('showPhoneBtn').addEventListener('click', () => {
                 document.getElementById('victoryPopup').classList.remove('show');

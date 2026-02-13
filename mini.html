@@ -17,7 +17,7 @@
     .pm-embed-div{width:100%;max-width:900px;}
 
     /* Victory Popup */
-    .victory-popup{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2147483647;display:none;align-items:center;justify-content:center;}
+    .victory-popup{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:none;align-items:center;justify-content:center;}
     .victory-popup.show{display:flex;}
     .victory-content{background:#fff;padding:3rem 2.5rem;border-radius:16px;text-align:center;max-width:400px;margin:0 1rem;}
     .victory-message{font-size:2rem;font-weight:700;margin-bottom:2rem;color:#000;}
@@ -26,20 +26,25 @@
     .back-to-puzzles-btn:active{transform:scale(.97);}
 
     /* iPhone Call Screen */
-    .win-screen{position:fixed;inset:0;background:#1c1c1e;z-index:2147483647;display:none;}
+    .win-screen{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:-webkit-fill-available;background:#1c1c1e;z-index:10001;display:none;}
     .win-screen.show{display:block;}
     .iphone-call{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3rem 2rem;color:#fff;}
     .call-info{text-align:center;margin-top:4rem;}
     .caller-name{font-size:2.5rem;margin-bottom:.75rem;font-weight:400;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;}
     .call-status{font-size:1.125rem;color:#a1a1a1;font-weight:400;}
 
+    .call-actions{display:flex;gap:4rem;margin-bottom:3rem;}
+    .call-action{display:flex;flex-direction:column;align-items:center;gap:.5rem;color:#fff;}
+    .action-icon{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+    .action-label{font-size:.875rem;color:#a1a1a1;}
+
     .slide-to-answer{width:100%;max-width:350px;height:70px;background:rgba(120,120,128,.36);border-radius:35px;position:relative;overflow:hidden;margin-bottom:2rem;user-select:none;}
-    .slide-text{position:absolute;width:100%;text-align:center;top:50%;transform:translateY(-50%);font-size:1.125rem;color:#fff;pointer-events:none;transition:opacity .3s;font-weight:400;}
-    .slide-button{position:absolute;left:5px;top:5px;width:60px;height:60px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.75rem;transition:left .3s ease;cursor:grab;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+    .slide-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:1.15rem;white-space:nowrap;pointer-events:none;}
+    .slide-button{position:absolute;left:5px;top:5px;width:60px;height:60px;background:linear-gradient(135deg, #34c759, #30d158);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:grab;touch-action:none;z-index:2;}
     .slide-button:active{cursor:grabbing;}
 
     /* Reveal */
-    .wetlands-reveal{position:fixed;inset:0;background:#fff;z-index:2147483647;display:none;flex-direction:column;align-items:center;justify-content:center;padding:0;}
+    .wetlands-reveal{position:fixed;inset:0;width:100%;height:100%;min-height:100vh;min-height:-webkit-fill-available;background:#fff;z-index:10002;display:none;flex-direction:column;align-items:center;justify-content:center;padding:0;}
     .wetlands-reveal.show{display:flex;}
     .wetlands-reveal img{width:100%;height:100%;object-fit:cover;}
     .end-call-btn{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);padding:.875rem 2rem;background:#007AFF;color:#fff;border:none;border-radius:24px;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s ease;z-index:10;}
@@ -120,7 +125,18 @@ document.getElementById("closeVictory")?.addEventListener("click", () => {
     <div class="iphone-call">
       <div class="call-info">
         <div class="caller-name">💧</div>
-        <div class="call-status">answer quickly.</div>
+        <div class="call-status">answer quickly</div>
+      </div>
+
+      <div class="call-actions">
+        <div class="call-action">
+          <div class="action-icon">🔔</div>
+          <div class="action-label">Remind Me</div>
+        </div>
+        <div class="call-action">
+          <div class="action-icon">💬</div>
+          <div class="action-label">Message</div>
+        </div>
       </div>
 
       <div class="slide-to-answer" id="slideToAnswer">
