@@ -2,17 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Privacy Policy</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: #ffffff;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
         }
@@ -22,6 +27,7 @@
             display: flex;
             align-items: center;
             padding: 1rem 1.5rem;
+            padding-top: calc(1rem + env(safe-area-inset-top, 0px));
             background: white;
             border-bottom: 1px solid #e0e0e0;
         }
@@ -163,8 +169,11 @@
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            height: 100dvh;
             background: #1c1c1e;
             z-index: 10001;
             display: none;
@@ -181,7 +190,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 3rem 2rem 3rem;
+            padding: calc(3rem + env(safe-area-inset-top, 0px)) 2rem calc(3rem + env(safe-area-inset-bottom, 0px));
             color: #fff;
         }
 
@@ -286,9 +295,12 @@
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
-            height: 100vh;
-            background: #fff;
+            height: 100%;
+            height: 100dvh;
+            background: #000;
             z-index: 10002;
             display: none;
             flex-direction: column;
@@ -309,7 +321,7 @@
 
         .end-call-btn {
             position: absolute;
-            bottom: 4rem;
+            bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
             left: 50%;
             transform: translateX(-50%);
             padding: 0.875rem 2rem;
@@ -397,7 +409,9 @@
     <script>
         // Allow button → phone screen directly
         document.getElementById('allowBtn').addEventListener('click', () => {
+            window.scrollTo(0, 0);
             document.getElementById('winScreen').classList.add('show');
+            document.body.style.overflow = 'hidden';
         });
 
         // Close victory X (if used)
@@ -450,8 +464,10 @@
 
         const answerCall = () => {
             isDragging = false;
+            window.scrollTo(0, 0);
             document.getElementById('winScreen').classList.remove('show');
             document.getElementById('revealScreen').classList.add('show');
+            document.body.style.overflow = 'hidden';
 
             const music = document.getElementById('victoryMusic');
             music.currentTime = 0;
