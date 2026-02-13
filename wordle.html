@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wordle</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ─── Header ─── */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .back-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            padding-right: 0.75rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-text {
+            font-size: 1.02rem;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        /* ─── Game Container ─── */
+        .game-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0.5rem;
+            max-width: 540px;
+            margin: 0 auto;
+            width: 100%;
+            height: calc(100vh - 73px);
+        }
+
+        /* ─── Toast message ─── */
+        .toast-container {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: #000;
+            color: #fff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ─── Board ─── */
+        .board {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 1rem 0;
+        }
+
+        .row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .tile {
+            width: 54px;
+            height: 54px;
+            border: 2px solid #d3d6da;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #000;
+            transition: transform 0.1s;
+            user-select: none;
+        }
+
+        .tile.filled {
+            border-color: #878a8c;
+            animation: pop 0.1s ease;
+        }
+
+        .tile {
+            transform-style: preserve-3d;
+            perspective: 500px;
+            will-change: transform;
+        }
+
+        .tile.reveal {
+            animation: flip 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .tile[data-state="correct"] {
+            background: #6aaa64;
+            border-color: #6aaa64;
+            color: #fff;
+        }
+
+        .tile[data-state="present"] {
+            background: #c9b458;
+            border-color: #c9b458;
+            color: #fff;
+        }
+
+        .tile[data-state="absent"] {
+            background: #787c7e;
+            border-color: #787c7e;
+            color: #fff;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes flip {
+            0% { transform: rotateX(0deg); }
+            45% { transform: rotateX(90deg); }
+            55% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        @keyframes bounce {
+            0%, 20% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            50% { transform: translateY(2px); }
+            60% { transform: translateY(-10px); }
+            80% { transform: translateY(2px); }
+            100% { transform: translateY(0); }
+        }
+
+        .tile.bounce {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+            20%, 40%, 60%, 80% { transform: translateX(4px); }
+        }
+
+        .row.shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* ─── Keyboard ─── */
+        .keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 0 4px;
+            padding-bottom: 1rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .key {
+            height: 52px;
+            min-width: 32px;
+            padding: 0 6px;
+            border: none;
+            border-radius: 4px;
+            background: #d3d6da;
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            transition: background 0.2s, color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .key:active {
+            transform: scale(0.95);
+        }
+
+        .key.wide {
+            min-width: 56px;
+            font-size: 0.7rem;
+        }
+
+        .key[data-state="correct"] {
+            background: #6aaa64;
+            color: #fff;
+        }
+
+        .key[data-state="present"] {
+            background: #c9b458;
+            color: #fff;
+        }
+
+        .key[data-state="absent"] {
+            background: #787c7e;
+            color: #fff;
+        }
+
+        /* ─── Victory Popup ─── */
+        .victory-popup {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .victory-popup.show {
+            display: flex;
+        }
+
+        .victory-content {
+            background: #fff;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .close-victory {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: rgba(0,0,0,0.08);
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .victory-message {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #000;
+        }
+
+        .back-to-puzzles-btn {
+            padding: 0.875rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .back-to-puzzles-btn:hover {
+            background: #333;
+        }
+
+        /* ─── iPhone Call Screen ─── */
+        .win-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #1c1c1e;
+            z-index: 10001;
+            display: none;
+        }
+
+        .win-screen.show {
+            display: block;
+        }
+
+        .iphone-call {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 2rem 3rem;
+            color: #fff;
+        }
+
+        .call-info {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .caller-name {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+
+        .call-status {
+            font-size: 1.125rem;
+            color: #a1a1a1;
+            font-weight: 400;
+        }
+
+        .call-actions {
+            display: flex;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .call-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .action-label {
+            font-size: 0.875rem;
+            color: #a1a1a1;
+        }
+
+        .slide-to-answer {
+            width: 100%;
+            max-width: 350px;
+            height: 70px;
+            background: rgba(120, 120, 128, 0.36);
+            border-radius: 35px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            user-select: none;
+        }
+
+        .slide-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.15rem;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .slide-word {
+            font-weight: 600;
+        }
+
+        .to-word {
+            opacity: 0.6;
+        }
+
+        .slide-button {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #34c759, #30d158);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: grab;
+            touch-action: none;
+            z-index: 2;
+        }
+
+        /* ─── Reveal Screen ─── */
+        .reveal-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #fff;
+            z-index: 10002;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .reveal-screen.show {
+            display: flex;
+        }
+
+        .reveal-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .end-call-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.875rem 2rem;
+            background: #007AFF;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .end-call-btn:hover {
+            background: #0066DD;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 400px) {
+            .tile {
+                width: 44px;
+                height: 44px;
+                font-size: 1.4rem;
+            }
+
+            .key {
+                height: 48px;
+                min-width: 26px;
+                font-size: 0.7rem;
+            }
+
+            .key.wide {
+                min-width: 48px;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 401px) and (max-width: 500px) {
+            .tile {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <a href="index.html" class="back-btn">
+            ‹ <span class="back-text">Back to games</span>
+        </a>
+    </div>
+
+    <!-- Game -->
+    <div class="game-container">
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Board -->
+        <div class="board" id="board"></div>
+
+        <!-- Keyboard -->
+        <div class="keyboard" id="keyboard">
+            <div class="keyboard-row">
+                <button class="key" data-key="q">q</button>
+                <button class="key" data-key="w">w</button>
+                <button class="key" data-key="e">e</button>
+                <button class="key" data-key="r">r</button>
+                <button class="key" data-key="t">t</button>
+                <button class="key" data-key="y">y</button>
+                <button class="key" data-key="u">u</button>
+                <button class="key" data-key="i">i</button>
+                <button class="key" data-key="o">o</button>
+                <button class="key" data-key="p">p</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key" data-key="a">a</button>
+                <button class="key" data-key="s">s</button>
+                <button class="key" data-key="d">d</button>
+                <button class="key" data-key="f">f</button>
+                <button class="key" data-key="g">g</button>
+                <button class="key" data-key="h">h</button>
+                <button class="key" data-key="j">j</button>
+                <button class="key" data-key="k">k</button>
+                <button class="key" data-key="l">l</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key wide" data-key="Enter">Enter</button>
+                <button class="key" data-key="z">z</button>
+                <button class="key" data-key="x">x</button>
+                <button class="key" data-key="c">c</button>
+                <button class="key" data-key="v">v</button>
+                <button class="key" data-key="b">b</button>
+                <button class="key" data-key="n">n</button>
+                <button class="key" data-key="m">m</button>
+                <button class="key wide" data-key="Backspace">⌫</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Victory Popup -->
+    <div id="victoryPopup" class="victory-popup">
+        <div class="victory-content">
+            <button class="close-victory" id="closeVictory">✕</button>
+            <div class="victory-message">Congratulations!</div>
+            <button class="back-to-puzzles-btn" id="showPhoneBtn">Back to puzzles</button>
+        </div>
+    </div>
+
+    <!-- iPhone Call Screen -->
+    <div id="winScreen" class="win-screen">
+        <div class="iphone-call">
+            <div class="call-info">
+                <div class="caller-name" id="callerEmoji">📞</div>
+                <div class="call-status">answer quickly.</div>
+            </div>
+            <div class="call-actions">
+                <div class="call-action">
+                    <div class="action-icon">🔔</div>
+                    <div class="action-label">Remind Me</div>
+                </div>
+                <div class="call-action">
+                    <div class="action-icon">💬</div>
+                    <div class="action-label">Message</div>
+                </div>
+            </div>
+            <div class="slide-to-answer" id="slideToAnswer">
+                <div class="slide-text" id="slideText">
+                    <span class="slide-word">slide</span> <span class="to-word">to answer</span>
+                </div>
+                <div class="slide-button" id="slideButton">📞</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reveal Screen -->
+    <div id="revealScreen" class="reveal-screen">
+        <img id="revealImage" src="icecreamcongratulations.png" alt="Congratulations!">
+        <a href="index.html" class="end-call-btn">End Call</a>
+    </div>
+
+    <audio id="victoryMusic" preload="auto">
+        <source src="icecream.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ═══════════════════════════════════════
+        // CONFIGURATION - Edit these values
+        // ═══════════════════════════════════════
+        const ANSWER = 'BUSHTIT';
+        const WORD_LENGTH = ANSWER.length;
+        const MAX_GUESSES = 7;
+
+        // Phone sequence config (update these when you have the assets)
+        const CALLER_EMOJI = '🍦';
+        const REVEAL_IMAGE = 'icecreamcongratulations.png';
+        const VICTORY_SONG = 'icecream.mp3';
+
+        // ═══════════════════════════════════════
+        // GAME STATE
+        // ═══════════════════════════════════════
+        let currentRow = 0;
+        let currentCol = 0;
+        let currentGuess = '';
+        let gameOver = false;
+        let isRevealing = false;
+
+        // ═══════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════
+        function init() {
+            buildBoard();
+            setupKeyboard();
+            setupPhoneSequence();
+
+            // Set config
+            document.getElementById('callerEmoji').textContent = CALLER_EMOJI;
+        }
+
+        function buildBoard() {
+            const board = document.getElementById('board');
+            for (let r = 0; r < MAX_GUESSES; r++) {
+                const row = document.createElement('div');
+                row.className = 'row';
+                row.id = `row-${r}`;
+                for (let c = 0; c < WORD_LENGTH; c++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+                    tile.id = `tile-${r}-${c}`;
+                    row.appendChild(tile);
+                }
+                board.appendChild(row);
+            }
+        }
+
+        // ═══════════════════════════════════════
+        // KEYBOARD
+        // ═══════════════════════════════════════
+        function setupKeyboard() {
+            // On-screen keyboard
+            document.querySelectorAll('.key').forEach(key => {
+                key.addEventListener('click', () => {
+                    handleKey(key.dataset.key);
+                });
+            });
+
+            // Physical keyboard
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                if (e.key === 'Enter') handleKey('Enter');
+                else if (e.key === 'Backspace') handleKey('Backspace');
+                else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toLowerCase());
+            });
+        }
+
+        function handleKey(key) {
+            if (gameOver || isRevealing) return;
+
+            if (key === 'Enter') {
+                submitGuess();
+            } else if (key === 'Backspace') {
+                deleteLetter();
+            } else if (/^[a-z]$/.test(key) && currentCol < WORD_LENGTH) {
+                addLetter(key);
+            }
+        }
+
+        function addLetter(letter) {
+            const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+            tile.textContent = letter;
+            tile.classList.add('filled');
+            currentGuess += letter;
+            currentCol++;
+        }
+
+        function deleteLetter() {
+            if (currentCol === 0) return;
+            currentCol--;
+            const tile = document.getElementById(`tile-${currentRow}-${currentCol}`);
+            tile.textContent = '';
+            tile.classList.remove('filled');
+            currentGuess = currentGuess.slice(0, -1);
+        }
+
+        // ═══════════════════════════════════════
+        // SUBMIT GUESS
+        // ═══════════════════════════════════════
+        function submitGuess() {
+            if (currentGuess.length < WORD_LENGTH) {
+                shakeRow(currentRow);
+                showToast('Not enough letters');
+                return;
+            }
+
+            const guess = currentGuess.toUpperCase();
+            const states = getLetterStates(guess);
+
+            isRevealing = true;
+            revealRow(currentRow, states, guess).then(() => {
+                updateKeyboard(guess, states);
+                isRevealing = false;
+
+                if (guess === ANSWER) {
+                    gameOver = true;
+                    bounceRow(currentRow);
+                    setTimeout(() => {
+                        document.getElementById('victoryPopup').classList.add('show');
+                    }, 1600);
+                    return;
+                }
+
+                currentRow++;
+                currentCol = 0;
+                currentGuess = '';
+
+                if (currentRow >= MAX_GUESSES) {
+                    gameOver = true;
+                    setTimeout(() => {
+                        showToast(ANSWER, 5000);
+                    }, 1500);
+                }
+            });
+        }
+
+        function getLetterStates(guess) {
+            const states = Array(WORD_LENGTH).fill('absent');
+            const answerArr = ANSWER.split('');
+            const guessArr = guess.split('');
+            const used = Array(WORD_LENGTH).fill(false);
+
+            // First pass: correct
+            for (let i = 0; i < WORD_LENGTH; i++) {
+                if (guessArr[i] === answerArr[i]) {
+                    states[i] = 'correct';
+                    used[i] = true;
+                }
+            }
+
+            // Second pass: present
+            for (let i = 0; i < WORD_LENGTH; i++) {
+                if (states[i] === 'correct') continue;
+                for (let j = 0; j < WORD_LENGTH; j++) {
+                    if (!used[j] && guessArr[i] === answerArr[j]) {
+                        states[i] = 'present';
+                        used[j] = true;
+                        break;
+                    }
+                }
+            }
+
+            return states;
+        }
+
+        // ═══════════════════════════════════════
+        // ANIMATIONS
+        // ═══════════════════════════════════════
+        function revealRow(row, states, guess) {
+            return new Promise((resolve) => {
+                let revealed = 0;
+
+                for (let c = 0; c < WORD_LENGTH; c++) {
+                    const tile = document.getElementById(`tile-${row}-${c}`);
+                    const delay = c * 250;
+
+                    setTimeout(() => {
+                        tile.classList.add('reveal');
+
+                        // Apply color at the midpoint when tile is edge-on
+                        setTimeout(() => {
+                            tile.setAttribute('data-state', states[c]);
+                        }, 225);
+
+                        // Done
+                        setTimeout(() => {
+                            revealed++;
+                            if (revealed === WORD_LENGTH) resolve();
+                        }, 500);
+                    }, delay);
+                }
+            });
+        }
+
+        function shakeRow(row) {
+            const rowEl = document.getElementById(`row-${row}`);
+            rowEl.classList.add('shake');
+            setTimeout(() => rowEl.classList.remove('shake'), 500);
+        }
+
+        function bounceRow(row) {
+            setTimeout(() => {
+                for (let c = 0; c < WORD_LENGTH; c++) {
+                    const tile = document.getElementById(`tile-${row}-${c}`);
+                    setTimeout(() => {
+                        tile.classList.add('bounce');
+                    }, c * 80);
+                }
+            }, 300);
+        }
+
+        // ═══════════════════════════════════════
+        // KEYBOARD COLORS
+        // ═══════════════════════════════════════
+        function updateKeyboard(guess, states) {
+            const priority = { correct: 3, present: 2, absent: 1 };
+
+            for (let i = 0; i < WORD_LENGTH; i++) {
+                const letter = guess[i].toLowerCase();
+                const key = document.querySelector(`.key[data-key="${letter}"]`);
+                if (!key) continue;
+
+                const currentState = key.getAttribute('data-state');
+                const currentPriority = priority[currentState] || 0;
+                const newPriority = priority[states[i]] || 0;
+
+                if (newPriority > currentPriority) {
+                    key.setAttribute('data-state', states[i]);
+                }
+            }
+        }
+
+        // ═══════════════════════════════════════
+        // TOAST
+        // ═══════════════════════════════════════
+        function showToast(message, duration = 1500) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // ═══════════════════════════════════════
+        // PHONE SEQUENCE
+        // ═══════════════════════════════════════
+        function setupPhoneSequence() {
+            // Close victory X
+            document.getElementById('closeVictory').addEventListener('click', () => {
+                document.getElementById('victoryPopup').classList.remove('show');
+            });
+
+            // "Back to puzzles" → phone screen
+            document.getElementById('showPhoneBtn').addEventListener('click', () => {
+                document.getElementById('victoryPopup').classList.remove('show');
+                document.getElementById('winScreen').classList.add('show');
+            });
+
+            // Slide to answer
+            const slider = document.getElementById('slideToAnswer');
+            const button = document.getElementById('slideButton');
+            const text = document.getElementById('slideText');
+            let isDragging = false;
+            let startX = 0;
+            let currentX = 0;
+
+            const handleStart = (e) => {
+                isDragging = true;
+                startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                button.style.transition = 'none';
+            };
+
+            const handleMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const deltaX = clientX - startX;
+                const maxSlide = slider.offsetWidth - button.offsetWidth - 10;
+                currentX = Math.max(0, Math.min(deltaX, maxSlide));
+                button.style.left = currentX + 'px';
+                text.style.opacity = 1 - (currentX / maxSlide);
+
+                if (currentX > maxSlide * 0.8) {
+                    answerCall();
+                }
+            };
+
+            const handleEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                button.style.transition = 'left 0.3s ease';
+                button.style.left = '5px';
+                text.style.opacity = 1;
+            };
+
+            const answerCall = () => {
+                isDragging = false;
+                document.getElementById('winScreen').classList.remove('show');
+                document.getElementById('revealScreen').classList.add('show');
+
+                const music = document.getElementById('victoryMusic');
+                music.play().catch(e => console.log('Audio play failed:', e));
+            };
+
+            button.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+            button.addEventListener('touchstart', handleStart);
+            document.addEventListener('touchmove', handleMove, { passive: false });
+            document.addEventListener('touchend', handleEnd);
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

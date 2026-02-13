@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connections ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Libre+Franklin:wght@300;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .back-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            padding-right: 0.75rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-text {
+            font-size: 1.02rem;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            margin-top: 4px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1rem;
+            flex: 1;
+        }
+        
+        .title {
+            display: none;
+        }
+        
+        .subtitle {
+            font-size: 1.125rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: #000;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .completed-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .completed-group {
+            padding: 0.95rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .completed-group.yellow {
+            background: #f9df6d;
+        }
+        
+        .completed-group.green {
+            background: #a0c35a;
+        }
+        
+        .completed-group.blue {
+            background: #b0c4ef;
+        }
+        
+        .completed-group.purple {
+            background: #ba81c5;
+        }
+        
+        .completed-group-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            font-family: 'Libre Franklin', sans-serif;
+            margin-bottom: 0.12rem;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+        
+        .completed-group-items {
+            font-size: 0.85rem;
+            font-weight: 300;
+            font-family: 'Libre Franklin', sans-serif;
+            text-transform: uppercase;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .tile {
+            aspect-ratio: 1;
+            background: #efefe6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            font-family: 'Libre Franklin', sans-serif;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 2px solid transparent;
+            user-select: none;
+            text-transform: uppercase;
+        }
+        
+        .tile:hover {
+            background: #e3e3da;
+        }
+        
+        .tile.selected {
+            background: #5a594e;
+            color: #fff;
+            border-color: #5a594e;
+        }
+        
+        .tile.shake {
+            animation: shake 0.4s;
+        }
+        
+        .tile.bounce {
+            animation: bounce 0.5s ease-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-12px); }
+            50% { transform: translateY(-6px); }
+            75% { transform: translateY(-3px); }
+        }
+        
+        .mistakes {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .mistake-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.375rem;
+        }
+        
+        .mistake-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #5a594e;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mistake-dot.used {
+            opacity: 0;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 24px;
+            border: 1px solid #000;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        .btn:disabled {
+            opacity: 1;
+            cursor: not-allowed;
+            color: #8b8b8b;
+            border-color: #8b8b8b;
+        }
+        
+        .btn-submit {
+            background: #000;
+            color: #fff;
+        }
+        
+        .btn-submit:disabled {
+            background: #fff;
+            color: #8b8b8b;
+            border-color: #8b8b8b;
+        }
+        
+        .btn-submit:hover {
+            background: #333;
+        }
+        
+        .btn-submit:disabled:hover {
+            background: #fff;
+        }
+        
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .message.show {
+            opacity: 1;
+        }
+        
+        .message.small {
+            top: 35%;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .win-screen {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .win-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .win-message {
+            font-size: 1.125rem;
+            color: #666;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem 0.5rem;
+                max-width: 100%;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            .grid {
+                gap: 0.3rem;
+                margin-bottom: 1rem;
+            }
+            
+            .tile {
+                font-size: 0.7rem;
+                padding: 0.25rem;
+                border-radius: 6px;
+            }
+            
+            .mistakes {
+                font-size: 0.8rem;
+                margin-bottom: 1.25rem;
+            }
+            
+            .mistake-dot {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .controls {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .completed-group {
+                padding: 0.75rem;
+            }
+            
+            .completed-group-title {
+                font-size: 1rem;
+            }
+            
+            .completed-group-items {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .container {
+                padding: 0.5rem 0.35rem;
+            }
+            
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .grid {
+                gap: 0.25rem;
+            }
+            
+            .tile {
+                font-size: 0.65rem;
+                padding: 0.2rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Victory Popup */
+        .victory-popup {
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        
+        .victory-popup.show {
+            display: flex;
+        }
+        
+        .victory-content {
+            background: #fff;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 1rem;
+        }
+        
+        .victory-message {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #000;
+        }
+        
+        .back-to-puzzles-btn {
+            padding: 0.875rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .back-to-puzzles-btn:hover {
+            background: #333;
+        }
+        
+        .back-to-puzzles-btn:active {
+            transform: scale(0.97);
+        }
+        
+        /* iPhone Call Screen */
+        .win-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #1c1c1e;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .win-screen.show {
+            display: block;
+        }
+        
+        .iphone-call {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 2rem 3rem;
+            color: #fff;
+        }
+        
+        .call-info {
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .caller-name {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        .call-status {
+            font-size: 1.125rem;
+            color: #a1a1a1;
+            font-weight: 400;
+        }
+        
+        .call-actions {
+            display: flex;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+        
+        .call-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+        }
+        
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .action-label {
+            font-size: 0.875rem;
+            color: #a1a1a1;
+        }
+        
+        .slide-to-answer {
+            width: 100%;
+            max-width: 350px;
+            height: 70px;
+            background: rgba(120, 120, 128, 0.36);
+            border-radius: 35px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .slide-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.125rem;
+            color: #fff;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-weight: 400;
+        }
+        
+        .slide-text .slide-word {
+            font-weight: 600;
+        }
+        
+        .slide-text .to-word {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .slide-button {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: left 0.3s ease;
+            cursor: grab;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-button:active {
+            cursor: grabbing;
+        }
+        
+        /* Timothee Reveal */
+        .timothee-reveal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #fff;
+            z-index: 2001;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .timothee-reveal.show {
+            display: flex;
+        }
+        
+        .timothee-reveal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .end-call-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.875rem 2rem;
+            background: #007AFF;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        
+        .end-call-btn:hover {
+            background: #0051D5;
+        }
+        
+        .end-call-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back-btn">
+            <span>‹</span>
+            <span class="back-text">Back to games</span>
+        </a>
+    </div>
+    
+    <div class="container">
+        <h1 class="title">Connections</h1>
+        <p class="subtitle">Create four groups of four!</p>
+        
+        <div class="completed-groups" id="completedGroups"></div>
+        
+        <div class="grid" id="grid"></div>
+        
+        <div class="mistakes">
+            <div>Mistakes Remaining:</div>
+            <div class="mistake-dots" id="mistakeDots">
+                <div class="mistake-dot"></div>
+                <div class="mistake-dot"></div>
+                <div class="mistake-dot"></div>
+                <div class="mistake-dot"></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" id="shuffleBtn">Shuffle</button>
+            <button class="btn" id="deselectBtn" disabled>Deselect all</button>
+            <button class="btn btn-submit" id="submitBtn" disabled>Submit</button>
+        </div>
+    </div>
+    
+    <div class="message" id="message"></div>
+
+    <script>
+        const categories = [
+            {
+                name: "On the floor",
+                color: "yellow",
+                items: ["Tyler's pants", "Dryer sheets", "No fly zone", "Kingfun"]
+            },
+            {
+                name: "Daily routine",
+                color: "green",
+                items: ["Starbucks", "Puzzles", "Shops", "Crying"]
+            },
+            {
+                name: "Tyler has helped teach Kelly",
+                color: "blue",
+                items: ["Patience", "Acceptance", "Love", "The rules"]
+            },
+            {
+                name: "Beginning with a food",
+                color: "purple",
+                items: ["Lemonhead", "Turkey Bullshit", "Celery Farm", "Blueberry Island"]
+            }
+        ];
+        
+        let tiles = [];
+        let selectedTiles = [];
+        let foundGroups = [];
+        let mistakesRemaining = 4;
+        
+        function init() {
+            // Flatten and shuffle all items
+            tiles = categories.flatMap(cat => 
+                cat.items.map(item => ({
+                    text: item,
+                    category: cat.name,
+                    color: cat.color
+                }))
+            );
+            shuffle(tiles);
+            renderGrid();
+            
+            document.getElementById('shuffleBtn').addEventListener('click', shuffleTiles);
+            document.getElementById('deselectBtn').addEventListener('click', deselectAll);
+            document.getElementById('submitBtn').addEventListener('click', submitGuess);
+        }
+        
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            
+            tiles.forEach((tile, index) => {
+                const tileEl = document.createElement('div');
+                tileEl.className = 'tile';
+                tileEl.textContent = tile.text;
+                tileEl.dataset.index = index;
+                tileEl.addEventListener('click', () => toggleTile(index));
+                grid.appendChild(tileEl);
+            });
+        }
+        
+        function toggleTile(index) {
+            const tileIndex = selectedTiles.indexOf(index);
+            
+            if (tileIndex > -1) {
+                selectedTiles.splice(tileIndex, 1);
+            } else {
+                if (selectedTiles.length < 4) {
+                    selectedTiles.push(index);
+                }
+            }
+            
+            updateTileStates();
+            updateButtons();
+        }
+        
+        function updateTileStates() {
+            document.querySelectorAll('.tile').forEach((el, idx) => {
+                if (selectedTiles.includes(idx)) {
+                    el.classList.add('selected');
+                } else {
+                    el.classList.remove('selected');
+                }
+            });
+        }
+        
+        function updateButtons() {
+            document.getElementById('deselectBtn').disabled = selectedTiles.length === 0;
+            document.getElementById('submitBtn').disabled = selectedTiles.length !== 4;
+        }
+        
+        function deselectAll() {
+            selectedTiles = [];
+            updateTileStates();
+            updateButtons();
+        }
+        
+        function shuffleTiles() {
+            shuffle(tiles);
+            selectedTiles = [];
+            renderGrid();
+            updateButtons();
+        }
+        
+        function submitGuess() {
+            const selected = selectedTiles.map(i => tiles[i]);
+            const categories = [...new Set(selected.map(t => t.category))];
+            
+            // Check if already guessed this exact combination
+            const selectedTexts = selected.map(t => t.text).sort().join(',');
+            const alreadyGuessed = foundGroups.some(group => 
+                group.items.sort().join(',') === selectedTexts
+            );
+            
+            if (alreadyGuessed) {
+                showMessage('Already guessed!', true);
+                return;
+            }
+            
+            if (categories.length === 1) {
+                // Correct! Add bounce animation
+                selectedTiles.forEach(i => {
+                    const tile = document.querySelector(`[data-index="${i}"]`);
+                    tile.classList.add('bounce');
+                    setTimeout(() => tile.classList.remove('bounce'), 500);
+                });
+                
+                const category = categories[0];
+                const foundCategory = {
+                    name: category,
+                    color: selected[0].color,
+                    items: selected.map(t => t.text)
+                };
+                
+                // Delay showing completed group until after bounce
+                setTimeout(() => {
+                    foundGroups.push(foundCategory);
+                    
+                    // Remove found tiles
+                    tiles = tiles.filter(t => t.category !== category);
+                    selectedTiles = [];
+                    
+                    renderCompletedGroups();
+                    renderGrid();
+                    updateButtons();
+                    
+                    if (foundGroups.length === 4) {
+                        showWinScreen();
+                    }
+                }, 500);
+            } else if (categories.length === 2) {
+                // Check if one away (3 from same category)
+                const categoryCounts = {};
+                selected.forEach(t => {
+                    categoryCounts[t.category] = (categoryCounts[t.category] || 0) + 1;
+                });
+                
+                if (Object.values(categoryCounts).includes(3)) {
+                    showMessage('One away...', true);
+                }
+                
+                mistakesRemaining--;
+                updateMistakes();
+                
+                // Shake animation
+                selectedTiles.forEach(i => {
+                    const tile = document.querySelector(`[data-index="${i}"]`);
+                    tile.classList.add('shake');
+                    setTimeout(() => tile.classList.remove('shake'), 400);
+                });
+                
+                if (mistakesRemaining === 0) {
+                    showMessage('I see no mistakes so here is a recharge!');
+                    setTimeout(() => {
+                        mistakesRemaining = 4;
+                        updateMistakes();
+                    }, 1500);
+                }
+            } else {
+                // Wrong
+                mistakesRemaining--;
+                updateMistakes();
+                
+                // Shake animation
+                selectedTiles.forEach(i => {
+                    const tile = document.querySelector(`[data-index="${i}"]`);
+                    tile.classList.add('shake');
+                    setTimeout(() => tile.classList.remove('shake'), 400);
+                });
+                
+                if (mistakesRemaining === 0) {
+                    showMessage('I see no mistakes so here is a recharge!');
+                    setTimeout(() => {
+                        mistakesRemaining = 4;
+                        updateMistakes();
+                    }, 1500);
+                }
+            }
+        }
+        
+        function renderCompletedGroups() {
+            const container = document.getElementById('completedGroups');
+            container.innerHTML = '';
+            
+            foundGroups.forEach(group => {
+                const groupEl = document.createElement('div');
+                groupEl.className = `completed-group ${group.color}`;
+                groupEl.innerHTML = `
+                    <div class="completed-group-title">${group.name}</div>
+                    <div class="completed-group-items">${group.items.join(', ')}</div>
+                `;
+                container.appendChild(groupEl);
+            });
+        }
+        
+        function updateMistakes() {
+            const dots = document.querySelectorAll('.mistake-dot');
+            dots.forEach((dot, i) => {
+                if (i >= mistakesRemaining) {
+                    dot.classList.add('used');
+                }
+            });
+        }
+        
+        function showMessage(text, isSmall = false) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = isSmall ? 'message small show' : 'message show';
+            setTimeout(() => msg.classList.remove('show'), 1500);
+        }
+        
+        function showWinScreen() {
+            // Show victory popup
+            document.getElementById('victoryPopup').classList.add('show');
+            
+            // Add event listener when popup is shown
+            document.getElementById('showPhoneBtn').addEventListener('click', () => {
+                console.log('Button clicked!');
+                document.getElementById('victoryPopup').classList.remove('show');
+                document.getElementById('winScreen').classList.add('show');
+                setupPhoneSlider();
+            });
+        }
+        
+        function setupPhoneSlider() {
+            const slider = document.getElementById('slideToAnswer');
+            const button = document.getElementById('slideButton');
+            const text = document.getElementById('slideText');
+            let isDragging = false;
+            let startX = 0;
+            let currentX = 0;
+            
+            const handleStart = (e) => {
+                isDragging = true;
+                startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                button.style.transition = 'none';
+            };
+            
+            const handleMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const deltaX = clientX - startX;
+                const maxSlide = slider.offsetWidth - button.offsetWidth - 10;
+                
+                currentX = Math.max(0, Math.min(deltaX, maxSlide));
+                button.style.left = currentX + 'px';
+                
+                text.style.opacity = 1 - (currentX / maxSlide);
+                
+                if (currentX > maxSlide * 0.8) {
+                    answerCall();
+                }
+            };
+            
+            const handleEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                button.style.transition = 'left 0.3s ease';
+                button.style.left = '5px';
+                text.style.opacity = 1;
+            };
+            
+            const answerCall = () => {
+                isDragging = false;
+                document.getElementById('winScreen').classList.remove('show');
+                document.getElementById('timotheeReveal').classList.add('show');
+                
+                const music = document.getElementById('victoryMusic');
+                music.play().catch(e => console.log('Audio play failed:', e));
+            };
+            
+            button.addEventListener('mousedown', handleStart);
+            document.addEventListener('mousemove', handleMove);
+            document.addEventListener('mouseup', handleEnd);
+            
+            button.addEventListener('touchstart', handleStart);
+            document.addEventListener('touchmove', handleMove, { passive: false });
+            document.addEventListener('touchend', handleEnd);
+        }
+        
+        init();
+    </script>
+    
+    <!-- Victory Popup -->
+    <div id="victoryPopup" class="victory-popup">
+        <div class="victory-content">
+            <div class="victory-message">Congratulations!</div>
+            <button class="back-to-puzzles-btn" id="showPhoneBtn">Back to puzzles</button>
+        </div>
+    </div>
+    
+    <!-- iPhone Call Screen -->
+    <div id="winScreen" class="win-screen">
+        <div class="iphone-call">
+            <div class="call-info">
+                <div class="caller-name">💗</div>
+                <div class="call-status">answer quickly.</div>
+            </div>
+            <div class="call-actions">
+                <div class="call-action">
+                    <div class="action-icon">🔔</div>
+                    <div class="action-label">Remind Me</div>
+                </div>
+                <div class="call-action">
+                    <div class="action-icon">💬</div>
+                    <div class="action-label">Message</div>
+                </div>
+            </div>
+            <div class="slide-to-answer" id="slideToAnswer">
+                <div class="slide-text" id="slideText">
+                    <span class="slide-word">slide</span> <span class="to-word">to answer</span>
+                </div>
+                <div class="slide-button" id="slideButton">📞</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timothee Reveal -->
+    <div id="timotheeReveal" class="timothee-reveal">
+        <img src="timotheecongratulations.png" alt="Congrats on the connections babe">
+        <a href="index.html" class="end-call-btn">End Call</a>
+    </div>
+    
+    <!-- Victory Music -->
+    <audio id="victoryMusic" preload="auto">
+        <source src="cmbyn.mp3" type="audio/mpeg">
+    </audio>
+</body>
+</html>
