@@ -6,9 +6,27 @@
     <title>Call Connected</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; overflow: hidden; background: #000; }
-        .reveal-container { width: 100%; height: 100vh; height: 100dvh; position: relative; }
-        .reveal-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .reveal-container {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            position: relative;
+        }
+
+        .reveal-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .end-call-btn {
             position: absolute;
             bottom: 1rem;
@@ -38,15 +56,16 @@
         <img src="icecreamcongratulations.png" alt="Congratulations!">
         <a href="index.html" class="end-call-btn" id="endCallBtn">End Call</a>
     </div>
+
     <audio id="victoryMusic" preload="auto">
         <source src="icecream.mp3" type="audio/mpeg">
     </audio>
+
     <script>
         const music = document.getElementById('victoryMusic');
         music.volume = 1.0;
         music.currentTime = 0;
 
-        // Aggressive autoplay: try immediately, on touch, and keep retrying
         function forcePlay() {
             music.play().then(() => {
                 clearInterval(retryInterval);
@@ -55,10 +74,8 @@
 
         forcePlay();
         const retryInterval = setInterval(forcePlay, 500);
-        // Stop retrying after 10 seconds
         setTimeout(() => clearInterval(retryInterval), 10000);
 
-        // Also try on any user interaction
         ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
             document.addEventListener(evt, () => {
                 forcePlay();
